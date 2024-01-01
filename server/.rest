@@ -1,0 +1,44 @@
+//Create category
+POST http://localhost:3000/api/categories
+Content-Type: application/json
+
+{
+  "title": "Test",
+  "description": "Category for test"
+}
+
+### 
+//Create product
+POST http://localhost:3000/api/products
+Content-Type: application/json
+
+{
+  "title": "Katt",
+  "price": 10000,
+  "description": "en liten katt",
+  "image": "https://images.pexels.com/photos/19380634/pexels-photo-19380634/free-photo-of-husdjur-katt-ligger-gapande.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+  "inStock": 1,
+  "categories": ["659323962f928229fdfd8152"]
+}
+
+###
+
+//Get all products
+GET http://localhost:3000/api/products/
+
+###
+//Get products by id
+GET http://localhost:3000/api/products/65932776364f847aeac5416b
+
+###
+//Get all categories
+GET http://localhost:3000/api/categories/
+
+###
+
+//Get category by id
+GET http://localhost:3000/api/products/byCategory/659323962f928229fdfd8152
+
+
+###
+

@@ -1,4 +1,4 @@
-const { Schema, model, models } = requrie("mongoose");
+const { Schema, model, models } = require("mongoose");
 const Joi = require("joi");
 
 
