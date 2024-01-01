@@ -37,4 +37,34 @@ async function createProduct(req, res, next) {
 }
 
 
-module.exports = { getAllProducts, getProduct, getProductsByCategory, createProduct }
+async function updateProduct(req, res, next) {
+    try {
+        const exists = await ProductModel.findById(req.params.id);
+        if (!exists) {
+            return res.status(404).json(`${req.params.id} not found`);
+        }
+        const product = await ProductModel.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true }
+        );
+        return res.status(200).json(product);
+    } catch (error) {
+        next(error);
+    }
+}
+
+
+async function deleteProduct(req, res, next) {
+    try {
+        const product = await ProductModel.findByIdAndDelete(req.params.id);
+        if (!product) {
+            return res.status(404).json({ message: `${req.params.id} not found` });
+        }
+        return res.status(204).json({ message: "Product deleted successfully" });
+    } catch (error) {
+        next(error);
+    }
+}
+
+module.exports = { getAllProducts, getProduct, getProductsByCategory, createProduct, updateProduct, deleteProduct }

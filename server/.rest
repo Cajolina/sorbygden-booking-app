@@ -41,4 +41,14 @@ GET http://localhost:3000/api/products/byCategory/659323962f928229fdfd8152
 
 
 ###
+//Update product by id
+PUT http://localhost:3000/api/products/65932776364f847aeac5416b
+Content-Type: application/json
 
+{
+    "title": "Katten2"
+}
+
+###
+//Delete product by id
+DELETE http://localhost:3000/api/products/659324be364f847aeac54167
