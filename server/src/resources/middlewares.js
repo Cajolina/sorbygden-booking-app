@@ -5,3 +5,7 @@ function validate(schema) {
         res.status(400).json(error.message);
     };
 }
+
+
+
+module.exports = { validate }
