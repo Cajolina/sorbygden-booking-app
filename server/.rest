@@ -1,3 +1,32 @@
+//Register admin
+POST http://localhost:3000/api/admin/register
+Content-Type: application/json
+
+{
+  "firstName": "Timmy",
+  "lastName": "Karlsson",
+  "email": "timmy@adminsorbygden.se",
+  "password": "admin",
+  "isAdmin": true
+}
+
+###
+
+//Login
+POST http://localhost:3000/api/admin/login
+Content-Type: application/json
+
+{
+  "email": "timmy@adminsorbygden.se",
+  "password": "admin"
+}
+
+###
+//logout
+POST http://localhost:3000/api/admin/logout
+Content-Type: application/json
+
+###
 //Create category
 POST http://localhost:3000/api/categories
 Content-Type: application/json
