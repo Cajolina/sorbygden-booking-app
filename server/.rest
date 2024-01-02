@@ -32,8 +32,8 @@ POST http://localhost:3000/api/categories
 Content-Type: application/json
 
 {
-  "title": "Test",
-  "description": "Category for test"
+  "title": "Testi",
+  "description": "Category for testi"
 }
 
 ### 
@@ -71,7 +71,7 @@ GET http://localhost:3000/api/products/byCategory/659323962f928229fdfd8152
 
 ###
 //Update product by id
-PUT http://localhost:3000/api/products/65932776364f847aeac5416b
+PUT http://localhost:3000/api/products/659424f4e7c88b7b55bd965e
 Content-Type: application/json
 
 {
@@ -80,4 +80,4 @@ Content-Type: application/json
 
 ###
 //Delete product by id
-DELETE http://localhost:3000/api/products/659324be364f847aeac54167
+DELETE http://localhost:3000/api/products/659424f4e7c88b7b55bd965e
