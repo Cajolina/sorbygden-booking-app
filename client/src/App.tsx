@@ -1,9 +1,13 @@
-import React from 'react'
-
+import { Routes, Route } from "react-router-dom";
 function App() {
   return (
-    <div>App</div>
-  )
+    <div>
+      App
+      <Routes>
+        <Route path="" element />
+      </Routes>
+    </div>
+  );
 }
 
-export default App
+export default App;
