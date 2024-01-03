@@ -1,4 +1,6 @@
 const { ProductModel } = require("../models/product.model");
+const dotenv = require("dotenv").config();
+const stripe = require('stripe')(process.env.STRIPE_API_KEY);
 
 
 //GET
@@ -28,9 +30,33 @@ async function getProductsByCategory(req, res, next) {
 
 async function createProduct(req, res, next) {
     try {
+
+        //Stripe
+        const stripeProduct = await stripe.products.create({
+            id: req.body.id,
+            name: req.body.title,
+            description: req.body.description,
+            images: req.body.images,
+            default_price_data: {
+                unit_amount: req.body.price * 10, // Priset i minsta enheten (till exempel cent)
+                currency: 'sek', // Valutan
+            },
+        })
+        console.log("Stripe Response:", stripeProduct);
+        if (!stripeProduct) {
+            return res.status(500).json({ error: 'Failed to create product in Stripe.' });
+        }
+
+        //Retrive price not id
+        // const retrievedPrice = await stripe.prices.retrieve(stripeProduct.default_price);
+        // console.log("Retrieved Price:", retrievedPrice.unit_amount / 10);
+
         const product = new ProductModel(req.body);
         await product.save();
-        res.status(201).json(product);
+        res.status(201).json({
+            product: product,
+            stripeProduct: stripeProduct,
+        });
     } catch (err) {
         next(err);
     }
