@@ -38,8 +38,8 @@ async function createProduct(req, res, next) {
             description: req.body.description,
             images: req.body.images,
             default_price_data: {
-                unit_amount: req.body.price * 10, // Priset i minsta enheten (till exempel cent)
-                currency: 'sek', // Valutan
+                unit_amount: req.body.price * 10,
+                currency: 'sek',
             },
         })
         console.log("Stripe Response:", stripeProduct);
@@ -65,6 +65,7 @@ async function createProduct(req, res, next) {
 
 async function updateProduct(req, res, next) {
     try {
+        // const productId = req.params.id;
         const exists = await ProductModel.findById(req.params.id);
         if (!exists) {
             return res.status(404).json(`${req.params.id} not found`);
@@ -74,6 +75,21 @@ async function updateProduct(req, res, next) {
             req.body,
             { new: true }
         );
+
+
+        // Uppdatera produkten i Stripe
+
+        // const stripeProduct = await stripe.products.update(productId, {
+        //     name: req.body.title,
+        //     description: req.body.description,
+        //     images: req.body.images,
+        //     default_price: {
+        //         unit_amount: req.body.price * 10,
+        //         currency: 'sek',
+        //     },
+        // });
+
+        // return res.status(200).json({ product, stripeProduct });
         return res.status(200).json(product);
     } catch (error) {
         next(error);

@@ -71,7 +71,7 @@ GET http://localhost:3000/api/products/byCategory/659323962f928229fdfd8152
 
 ###
 //Update product by id
-PUT http://localhost:3000/api/products/659424f4e7c88b7b55bd965e
+PUT http://localhost:3000/api/products/65955899a92a88f489d81a81
 Content-Type: application/json
 
 {
