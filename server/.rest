@@ -3,9 +3,9 @@ POST http://localhost:3000/api/admin/register
 Content-Type: application/json
 
 {
-  "firstName": "Timmy",
-  "lastName": "Karlsson",
-  "email": "timmy@adminsorbygden.se",
+  "firstName": "Test",
+  "lastName": "Test",
+  "email": "Test@adminsorbygden.se",
   "password": "admin",
   "isAdmin": true
 }
@@ -17,7 +17,7 @@ POST http://localhost:3000/api/admin/login
 Content-Type: application/json
 
 {
-  "email": "timmy@adminsorbygden.se",
+  "email": "Test@adminsorbygden.se",
   "password": "admin"
 }
 
@@ -32,8 +32,8 @@ POST http://localhost:3000/api/categories
 Content-Type: application/json
 
 {
-  "title": "Testi",
-  "description": "Category for testi"
+  "title": "Testalite",
+  "description": "Category for testa lite"
 }
 
 ### 
@@ -47,7 +47,7 @@ Content-Type: application/json
   "description": "en liten katt",
   "images": ["https://images.pexels.com/photos/19380634/pexels-photo-19380634/free-photo-of-husdjur-katt-ligger-gapande.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "https://images.pexels.com/photos/1485968/pexels-photo-1485968.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"],
   "inStock": 1,
-  "categories": ["659323962f928229fdfd8152"]
+  "categories": ["6597dc92590a7ecc6c0309b5"]
 }
 
 ###
@@ -57,7 +57,7 @@ GET http://localhost:3000/api/products/
 
 ###
 //Get products by id
-GET http://localhost:3000/api/products/65932776364f847aeac5416b
+GET http://localhost:3000/api/products/6597dff083369017f0dc33d7
 
 ###
 //Get all categories
@@ -66,12 +66,12 @@ GET http://localhost:3000/api/categories/
 ###
 
 //Get category by id
-GET http://localhost:3000/api/products/byCategory/659323962f928229fdfd8152
+GET http://localhost:3000/api/products/byCategory/6597dc92590a7ecc6c0309b5
 
 
 ###
 //Update product by id
-PUT http://localhost:3000/api/products/65955899a92a88f489d81a81
+PUT http://localhost:3000/api/products/6597dff083369017f0dc33d7
 Content-Type: application/json
 
 {
@@ -80,4 +80,4 @@ Content-Type: application/json
 
 ###
 //Delete product by id
-DELETE http://localhost:3000/api/products/659424f4e7c88b7b55bd965e
+DELETE http://localhost:3000/api/products/6597dff083369017f0dc33d7
