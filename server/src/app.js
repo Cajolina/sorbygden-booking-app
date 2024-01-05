@@ -1,6 +1,7 @@
 const express = require('express');
 const cookieSession = require("cookie-session");
-const { productRouter } = require('./resources/routes/product.router');
+const { eventRouter } = require('./resources/routes/event.router');
+const { facilityRouter } = require('./resources/routes/facility.router')
 const { categoryRouter } = require('./resources/routes/category.router');
 const { adminRouter } = require('./resources/routes/admin.router');
 
@@ -16,7 +17,8 @@ app.use(cookieSession({
     httpOnly: true,
 }))
 
-app.use('/api', productRouter);
+app.use('/api', eventRouter);
+app.use('/api', facilityRouter);
 app.use('/api', categoryRouter);
 app.use('/api', adminRouter)
 

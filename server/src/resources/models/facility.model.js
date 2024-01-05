@@ -2,13 +2,13 @@ const { Schema, model, models } = require("mongoose");
 const Joi = require("joi");
 
 
-const ProductSchema = new Schema(
+const FacilitySchema = new Schema(
     {
         title: { type: String, required: true },
         description: { type: String, required: true },
         price: { type: Number, required: true },
         images: [{ type: String, required: true }],
-        inStock: { type: Number, required: true, default: 0 },
+        availability: { type: Boolean, required: true, default: true },
         categories: {
             type: [Schema.Types.ObjectId],
             ref: "category",
@@ -19,21 +19,21 @@ const ProductSchema = new Schema(
     { versionKey: false }
 );
 
-const ProductModel = models.product || model("product", ProductSchema);
+const FacilityModel = models.facility || model("facility", FacilitySchema);
 
-const ProductValidationJoiSchema = Joi.object({
+const FacilityValidationJoiSchema = Joi.object({
     _id: Joi.string(),
     title: Joi.string().strict().required(),
     description: Joi.string().strict().required(),
     price: Joi.number().strict().required(),
     images: Joi.array().min(1).required(),
-    inStock: Joi.number().strict().required(),
+    availability: Joi.boolean().required(),
     categories: Joi.array().min(1).required(),
 })
 
 
 module.exports = {
-    ProductModel,
-    ProductValidationJoiSchema,
+    FacilityModel,
+    FacilityValidationJoiSchema,
 
 }
