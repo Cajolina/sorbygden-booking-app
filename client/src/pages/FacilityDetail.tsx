@@ -45,6 +45,7 @@ function FacilityDetail() {
           </ul>
         </li>
       </ul>
+      <button>Boka nu</button>
     </div>
   ) : null;
 }

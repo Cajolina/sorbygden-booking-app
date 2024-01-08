@@ -26,6 +26,7 @@ function Facilities() {
               <li>{facility.categories}</li>
             </ul>
           </Link>
+          <button>Boka nu</button>
         </div>
       ))}
     </div>
