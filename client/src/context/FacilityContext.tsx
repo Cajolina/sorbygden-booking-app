@@ -19,13 +19,14 @@ const FacilityProvider = ({ children }: PropsWithChildren) => {
 
   async function fetchFacilities() {
     try {
-      const response = await fetch("api/facilities");
+      const response = await fetch("/api/facilities");
       const data = await response.json();
       setFacilities(data);
     } catch (error) {
       console.log(error);
     }
   }
+
   useEffect(() => {
     fetchFacilities();
   }, []);
@@ -38,4 +39,5 @@ const FacilityProvider = ({ children }: PropsWithChildren) => {
     </div>
   );
 };
+
 export default FacilityProvider;

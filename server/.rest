@@ -111,7 +111,7 @@ GET http://localhost:3000/api/facilities/
 
 ###
 //Get facilities by id
-GET http://localhost:3000/api/facilities/65983923bda18a7b2ba02663
+GET http://localhost:3000/api/facilities/65983dc6fab201cab533d350
 
 
 ###
