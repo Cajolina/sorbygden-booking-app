@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { useEventContext } from "../context/EventContext";
 
+import AddToCartButton from "../components/AddToCartButton";
+
 function Events() {
   const { events } = useEventContext();
-
   return (
     <div>
       {events.map((event) => (
@@ -27,6 +28,7 @@ function Events() {
               <li>{event.categories}</li>
             </ul>
           </Link>
+          <AddToCartButton product={event} />
         </div>
       ))}
     </div>

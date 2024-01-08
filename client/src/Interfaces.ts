@@ -30,3 +30,17 @@ export interface IFacilityContext {
   facilities: IFacility[];
   fetchFacilities: () => void;
 }
+
+//Interfaces for cart
+export type IProduct = IEvent | IFacility;
+
+export interface ICartItem {
+  product: IProduct;
+  quantity?: number;
+  price: number;
+}
+
+export interface ICartContext {
+  cart: ICartItem[];
+  addToCart: (product: IProduct) => void;
+}
