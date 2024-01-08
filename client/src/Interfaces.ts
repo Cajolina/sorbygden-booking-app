@@ -1,5 +1,5 @@
 export interface IEvent {
-  _id: number;
+  _id: string;
   title: string;
   description: string;
   price: number;
@@ -16,7 +16,7 @@ export interface IEventContext {
 
 //
 export interface IFacility {
-  _id: number;
+  _id: string;
   title: string;
   description: string;
   price: number;
