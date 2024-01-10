@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useEventContext } from "../context/EventContext";
 
 import AddToCartButton from "../components/AddToCartButton";
+import CartDisplay from "../components/CartDisplay";
 
 function Events() {
   const { events } = useEventContext();
@@ -31,6 +32,7 @@ function Events() {
           <AddToCartButton product={event} />
         </div>
       ))}
+      <CartDisplay />
     </div>
   );
 }

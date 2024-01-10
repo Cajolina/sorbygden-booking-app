@@ -43,4 +43,8 @@ export interface ICartItem {
 export interface ICartContext {
   cart: ICartItem[];
   addToCart: (product: IProduct) => void;
+  removeCartItem: (productId: string) => void;
+  increaseCartQuantity: (product: IProduct) => void;
+  decreaseCartQuantity: (product: IProduct) => void;
+  totalSum: number;
 }
