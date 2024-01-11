@@ -30,7 +30,6 @@ async function register(req, res) {
 
 
 async function login(req, res) {
-    console.log("nu körs funktionen login");
     //find existing admin
     const existingAdmin = await AdminModel.findOne({
         email: req.body.email,

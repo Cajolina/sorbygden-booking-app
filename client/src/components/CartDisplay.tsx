@@ -3,6 +3,7 @@ import TrashCanIcon from "../assets/svgs/TrashCanIcon";
 import MinusIcon from "../assets/svgs/MinusIcon";
 import PlusIcon from "../assets/svgs/PlusIcon";
 import { Button } from "antd";
+import { useStripeCheckoutContext } from "../context/StripeCheckoutContext";
 function CartDisplay() {
   const {
     cart,
@@ -11,6 +12,7 @@ function CartDisplay() {
     increaseCartQuantity,
     totalSum,
   } = useCartContext();
+  const { handleCheckout } = useStripeCheckoutContext();
   const handleRemoveClick = (id: string) => {
     removeCartItem(id);
   };
@@ -35,24 +37,6 @@ function CartDisplay() {
           <p>{cartItem.product.price}</p>
           <p>{cartItem.quantity} st</p>
           <p>{cartItem.product.price * cartItem.quantity}</p>
-
-          {/* <button
-            onClick={(e) => {
-              e.preventDefault();
-              decreaseCartQuantity(cartItem.product);
-            }}
-          >
-            <MinusIcon />
-          </button>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              increaseCartQuantity(cartItem.product);
-            }}
-          >
-            <PlusIcon />
-          </button> */}
-
           {cartItem.product.type === "event" && (
             <>
               <Button
@@ -78,7 +62,9 @@ function CartDisplay() {
         </div>
       ))}
 
-      {cart.length > 0 && <h3>{`Totalsumma: ${totalSum} kr`}</h3>}
+      {cart.length > 0 && <h3>{`Totalsumma: ${totalSum} kr`}</h3> && (
+        <Button onClick={handleCheckout}>Till betalning</Button>
+      )}
     </div>
   );
 }
