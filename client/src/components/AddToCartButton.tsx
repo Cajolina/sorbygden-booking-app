@@ -14,7 +14,6 @@ function AddToCartButton({ product }: Props) {
   const disableButtonCondition =
     totalQuantityInCart >= (product as IEvent).inStock ||
     (product as IFacility).availability == false;
-  console.log(totalQuantityInCart);
 
   return (
     <div>

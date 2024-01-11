@@ -11,6 +11,7 @@ import EventProvider from "./context/EventContext";
 import FacilityProvider from "./context/FacilityContext";
 import EventDetail from "./pages/EventDetail";
 import CartProvider from "./context/CartContext";
+import StripeCheckoutProvider from "./context/StripeCheckoutContext";
 
 function App() {
   return (
@@ -18,17 +19,19 @@ function App() {
       <FacilityProvider>
         <EventProvider>
           <CartProvider>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/lokaler" element={<Facilities />} />
-              <Route path="/evenemang" element={<Events />} />
-              <Route path="/evenemang/:id" element={<EventDetail />} />
-              <Route path="/lokaler/:id" element={<FacilityDetail />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/admin" element={<AdminPanel />} />
-              <Route path="/confirmation" element={<OrderConfirmation />} />
-              <Route path="/kalender" element={<CalendarPage />} />
-            </Routes>
+            <StripeCheckoutProvider>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/lokaler" element={<Facilities />} />
+                <Route path="/evenemang" element={<Events />} />
+                <Route path="/evenemang/:id" element={<EventDetail />} />
+                <Route path="/lokaler/:id" element={<FacilityDetail />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/admin" element={<AdminPanel />} />
+                <Route path="/confirmation" element={<OrderConfirmation />} />
+                <Route path="/kalender" element={<CalendarPage />} />
+              </Routes>
+            </StripeCheckoutProvider>
           </CartProvider>
         </EventProvider>
       </FacilityProvider>
