@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { IFacility } from "../Interfaces";
 import { useParams } from "react-router-dom";
+import BookingButton from "../components/BookingButton";
 
 function FacilityDetail() {
   const [facility, setFacility] = useState<IFacility>();
@@ -45,7 +46,7 @@ function FacilityDetail() {
           </ul>
         </li>
       </ul>
-      <button>Boka nu</button>
+      <BookingButton />
     </div>
   ) : null;
 }

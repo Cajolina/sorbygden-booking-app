@@ -13,24 +13,25 @@ function Events() {
         <div>
           {events.map((event) => (
             <div key={event._id}>
+              <ul>
+                <li>{event._id}</li>
+                <li>{event.title}</li>
+                <li>{event.description}</li>
+                <li>{event.price}</li>
+                <li>
+                  <ul>
+                    {event.images.map((image, index) => (
+                      <li key={index}>
+                        <img src={image} alt={`Image ${index + 1}`} />
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+                <li>{event.inStock}</li>
+                <li>{event.categories}</li>
+              </ul>
               <Link to={`/evenemang/${event._id}`} key={event._id}>
-                <ul>
-                  <li>{event._id}</li>
-                  <li>{event.title}</li>
-                  <li>{event.description}</li>
-                  <li>{event.price}</li>
-                  <li>
-                    <ul>
-                      {event.images.map((image, index) => (
-                        <li key={index}>
-                          <img src={image} alt={`Image ${index + 1}`} />
-                        </li>
-                      ))}
-                    </ul>
-                  </li>
-                  <li>{event.inStock}</li>
-                  <li>{event.categories}</li>
-                </ul>
+                <p>Läs mer här</p>
               </Link>
               <AddToCartButton product={event} />
             </div>
