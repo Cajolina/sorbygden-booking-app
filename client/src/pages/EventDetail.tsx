@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { IEvent } from "../Interfaces";
 import { useParams } from "react-router-dom";
 import AddToCartButton from "../components/AddToCartButton";
+import CartDisplay from "../components/CartDisplay";
 
 function EventDetail() {
   const [event, setEvent] = useState<IEvent>();
@@ -45,6 +46,7 @@ function EventDetail() {
         </li>
       </ul>
       <AddToCartButton product={event} />
+      <CartDisplay />
     </div>
   ) : null;
 }

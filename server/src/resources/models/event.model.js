@@ -15,6 +15,7 @@ const EventSchema = new Schema(
             required: false,
         },
         deleted: { type: Boolean, required: false, default: false },
+        type: { type: String, enum: ["event"], required: true },
     },
     { versionKey: false }
 );
@@ -29,6 +30,7 @@ const EventValidationJoiSchema = Joi.object({
     images: Joi.array().min(1).required(),
     inStock: Joi.number().strict().required(),
     categories: Joi.array().min(1).required(),
+    type: Joi.string().valid("event").required(),
 })
 
 
