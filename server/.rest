@@ -44,12 +44,13 @@ POST http://localhost:3000/api/events
 Content-Type: application/json
 
 {
-  "title": "Pubkväll 2 mars tossengård",
-  "price": 250,
-  "description": "Dörrarna öppnas kl 18:00. Köp din biljett nu. Entré inkl. 4 drinkbiljetter. 250kr per person",
+  "title": "Biljard turnering",
+  "price": 60,
+  "description": "Välkommen på biljardturnering",
   "images": ["https://media.istockphoto.com/id/1147544807/sv/vektor/ingen-miniatyr-bild-vektor-grafik.jpg?s=612x612&w=0&k=20&c=RWp5ECPYkIEO8J3zxyvsc4Lrf68NiLDybtPHix_QI1I=", "https://media.istockphoto.com/id/1147544807/sv/vektor/ingen-miniatyr-bild-vektor-grafik.jpg?s=612x612&w=0&k=20&c=RWp5ECPYkIEO8J3zxyvsc4Lrf68NiLDybtPHix_QI1I="],
   "inStock": 100,
-  "categories": ["659809627eb39e14a2c58bef"]
+  "categories": ["659809627eb39e14a2c58bef"],
+  "type": "event"
 }
 
 ###
@@ -95,12 +96,13 @@ POST http://localhost:3000/api/facilities
 Content-Type: application/json
 
 {
-  "title": "En lokal",
+  "title": "Köket",
   "price": 300,
-  "description": "En stor lokal",
+  "description": "Kök med mycket utrustning",
   "images": ["https://media.istockphoto.com/id/1147544807/sv/vektor/ingen-miniatyr-bild-vektor-grafik.jpg?s=612x612&w=0&k=20&c=RWp5ECPYkIEO8J3zxyvsc4Lrf68NiLDybtPHix_QI1I=", "https://media.istockphoto.com/id/1147544807/sv/vektor/ingen-miniatyr-bild-vektor-grafik.jpg?s=612x612&w=0&k=20&c=RWp5ECPYkIEO8J3zxyvsc4Lrf68NiLDybtPHix_QI1I="],
   "availability": true,
-  "categories": ["659809627eb39e14a2c58bef"]
+  "categories": ["659809627eb39e14a2c58bef"],
+  "type": "facility"
 }
 
 ###

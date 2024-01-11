@@ -16,7 +16,7 @@ async function register(req, res) {
         admin.password = await bcrypt.hash(admin.password, 10);
         await admin.save();
 
-        // Creates a JSON representation of the admin, preserving ID and excluding the password
+        // Creates a JSON, preserving ID and excluding the password
         const jsonAdmin = admin.toJSON();
         jsonAdmin._id = admin._id;
         delete jsonAdmin.password;

@@ -15,6 +15,7 @@ const FacilitySchema = new Schema(
             required: false,
         },
         deleted: { type: Boolean, required: false, default: false },
+        type: { type: String, enum: ["facility"], required: true },
     },
     { versionKey: false }
 );
@@ -29,6 +30,7 @@ const FacilityValidationJoiSchema = Joi.object({
     images: Joi.array().min(1).required(),
     availability: Joi.boolean().required(),
     categories: Joi.array().min(1).required(),
+    type: Joi.string().valid("facility").required(),
 })
 
 

@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import { useFacilityContext } from "../context/FacilityContext";
+import AddToCartButton from "../components/AddToCartButton";
+import CartDisplay from "../components/CartDisplay";
 
 function Facilities() {
   const { facilities } = useFacilityContext();
   return (
     <div>
+      <h1>Lokaler</h1>
       {facilities.map((facility) => (
         <div key={facility._id}>
           <Link to={`/lokaler/${facility._id}`} key={facility._id}>
@@ -26,9 +29,11 @@ function Facilities() {
               <li>{facility.categories}</li>
             </ul>
           </Link>
+          <AddToCartButton product={facility} />
           <button>Boka nu</button>
         </div>
       ))}
+      <CartDisplay />
     </div>
   );
 }

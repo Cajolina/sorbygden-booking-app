@@ -36,7 +36,7 @@ function CartDisplay() {
           <p>{cartItem.quantity} st</p>
           <p>{cartItem.product.price * cartItem.quantity}</p>
 
-          <button
+          {/* <button
             onClick={(e) => {
               e.preventDefault();
               decreaseCartQuantity(cartItem.product);
@@ -51,11 +51,32 @@ function CartDisplay() {
             }}
           >
             <PlusIcon />
-          </button>
+          </button> */}
+
+          {cartItem.product.type === "event" && (
+            <>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  decreaseCartQuantity(cartItem.product);
+                }}
+              >
+                <MinusIcon />
+              </button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  increaseCartQuantity(cartItem.product);
+                }}
+              >
+                <PlusIcon />
+              </button>
+            </>
+          )}
         </div>
       ))}
 
-      <h3>{`Totalsumma: ${totalSum} kr`}</h3>
+      {cart.length > 0 && <h3>{`Totalsumma: ${totalSum} kr`}</h3>}
     </div>
   );
 }

@@ -7,6 +7,7 @@ export interface IEvent {
   inStock: number;
   categories: string[];
   deleted?: boolean;
+  type: "event";
 }
 
 export interface IEventContext {
@@ -24,6 +25,7 @@ export interface IFacility {
   availability: boolean;
   categories: string[];
   deleted?: boolean;
+  type: "facility";
 }
 
 export interface IFacilityContext {
@@ -36,7 +38,7 @@ export type IProduct = IEvent | IFacility;
 
 export interface ICartItem {
   product: IProduct;
-  quantity?: number;
+  quantity: number;
   price: number;
 }
 
