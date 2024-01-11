@@ -2,6 +2,7 @@ import { useCartContext } from "../context/CartContext";
 import TrashCanIcon from "../assets/svgs/TrashCanIcon";
 import MinusIcon from "../assets/svgs/MinusIcon";
 import PlusIcon from "../assets/svgs/PlusIcon";
+import { Button } from "antd";
 function CartDisplay() {
   const {
     cart,
@@ -18,18 +19,17 @@ function CartDisplay() {
     <div>
       {cart.map((cartItem) => (
         <div key={cartItem.product._id}>
-          <button
+          <Button
             onClick={(e) => {
               e.preventDefault();
               handleRemoveClick(cartItem.product._id);
             }}
-          >
-            <TrashCanIcon />
-          </button>
+            icon={<TrashCanIcon />}
+          />
           <img
             src={cartItem.product.images[0]}
             alt=""
-            style={{ width: "10%", height: "auto" }}
+            style={{ width: "50%", height: "auto" }}
           />
           <p>{cartItem.product.title}</p>
           <p>{cartItem.product.price}</p>
@@ -55,24 +55,24 @@ function CartDisplay() {
 
           {cartItem.product.type === "event" && (
             <>
-              <button
+              <Button
                 onClick={(e) => {
                   e.preventDefault();
                   decreaseCartQuantity(cartItem.product);
                 }}
                 disabled={cartItem.quantity <= 1}
-              >
-                <MinusIcon />
-              </button>
-              <button
+                icon={<MinusIcon />}
+                shape="circle"
+              />
+              <Button
                 onClick={(e) => {
                   e.preventDefault();
                   increaseCartQuantity(cartItem.product);
                 }}
                 disabled={cartItem.quantity >= cartItem.product.inStock}
-              >
-                <PlusIcon />
-              </button>
+                icon={<PlusIcon />}
+                shape="circle"
+              />
             </>
           )}
         </div>

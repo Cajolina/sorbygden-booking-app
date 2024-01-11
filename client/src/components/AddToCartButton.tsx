@@ -1,6 +1,6 @@
 import { useCartContext } from "../context/CartContext";
 import { IEvent, IFacility, IProduct } from "../Interfaces";
-
+import { Button } from "antd";
 type Props = {
   product: IProduct;
 };
@@ -14,18 +14,21 @@ function AddToCartButton({ product }: Props) {
   const disableButtonCondition =
     totalQuantityInCart >= (product as IEvent).inStock ||
     (product as IFacility).availability == false;
+  console.log(totalQuantityInCart);
+
   return (
     <div>
-      <button
+      <Button
         onClick={(e) => {
           e.preventDefault();
 
           addToCart(product);
         }}
         disabled={disableButtonCondition}
+        type="primary"
       >
         Köp
-      </button>
+      </Button>
     </div>
   );
 }
