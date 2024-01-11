@@ -44,11 +44,11 @@ POST http://localhost:3000/api/events
 Content-Type: application/json
 
 {
-  "title": "Biljard turnering",
+  "title": "Test",
   "price": 60,
   "description": "Välkommen på biljardturnering",
   "images": ["https://media.istockphoto.com/id/1147544807/sv/vektor/ingen-miniatyr-bild-vektor-grafik.jpg?s=612x612&w=0&k=20&c=RWp5ECPYkIEO8J3zxyvsc4Lrf68NiLDybtPHix_QI1I=", "https://media.istockphoto.com/id/1147544807/sv/vektor/ingen-miniatyr-bild-vektor-grafik.jpg?s=612x612&w=0&k=20&c=RWp5ECPYkIEO8J3zxyvsc4Lrf68NiLDybtPHix_QI1I="],
-  "inStock": 100,
+  "inStock": 2,
   "categories": ["659809627eb39e14a2c58bef"],
   "type": "event"
 }
@@ -100,7 +100,7 @@ Content-Type: application/json
   "price": 300,
   "description": "Kök med mycket utrustning",
   "images": ["https://media.istockphoto.com/id/1147544807/sv/vektor/ingen-miniatyr-bild-vektor-grafik.jpg?s=612x612&w=0&k=20&c=RWp5ECPYkIEO8J3zxyvsc4Lrf68NiLDybtPHix_QI1I=", "https://media.istockphoto.com/id/1147544807/sv/vektor/ingen-miniatyr-bild-vektor-grafik.jpg?s=612x612&w=0&k=20&c=RWp5ECPYkIEO8J3zxyvsc4Lrf68NiLDybtPHix_QI1I="],
-  "availability": true,
+  "availability": false,
   "categories": ["659809627eb39e14a2c58bef"],
   "type": "facility"
 }

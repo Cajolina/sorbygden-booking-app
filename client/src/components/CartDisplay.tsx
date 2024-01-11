@@ -60,6 +60,7 @@ function CartDisplay() {
                   e.preventDefault();
                   decreaseCartQuantity(cartItem.product);
                 }}
+                disabled={cartItem.quantity <= 1}
               >
                 <MinusIcon />
               </button>
@@ -68,6 +69,7 @@ function CartDisplay() {
                   e.preventDefault();
                   increaseCartQuantity(cartItem.product);
                 }}
+                disabled={cartItem.quantity >= cartItem.product.inStock}
               >
                 <PlusIcon />
               </button>
