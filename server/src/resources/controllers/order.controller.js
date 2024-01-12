@@ -26,10 +26,27 @@ async function createCheckoutSession(req, res) {
             success_url: `${CLIENT_URL}/confirmation`,
             cancel_url: currentUrl,
         })
-        res.status(200).json({ url: session.url });
+        res.status(200).json({ url: session.url, sessionId: session.id });
     } catch (error) {
         console.log(error.message);
         res.status(400).json("Could not create checkout session.");
     }
 }
-module.exports = { createCheckoutSession };
+
+async function verifySession(req, res) {
+    try {
+        console.log(req.body);
+        const session = await stripe.checkout.sessions.retrieve(req.body.sessionId);
+        if (session.payment_status !== "paid") {
+            return res.status(400).json({ verified: false })
+        } else {
+            return res.status(400).json({ verified: true })
+        }
+        // const line_items = await stripe.checkout.sessions.listLineItems(req.body.sessionId)
+
+    } catch (error) {
+        console.error(error.message)
+    }
+}
+
+module.exports = { createCheckoutSession, verifySession };

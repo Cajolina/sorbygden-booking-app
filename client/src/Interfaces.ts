@@ -56,4 +56,5 @@ export interface ICartContext {
 
 export interface IStripeCheckoutContext {
   handleCheckout: () => void;
+  verifyPayment: () => void;
 }
