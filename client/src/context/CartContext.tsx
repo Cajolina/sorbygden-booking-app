@@ -9,12 +9,17 @@ const CartContext = createContext<ICartContext>({
   increaseCartQuantity: () => {},
   decreaseCartQuantity: () => {},
   totalSum: 0,
+  clearCart: () => {},
 });
 
 export const useCartContext = () => useContext(CartContext);
 
 const CartProvider = ({ children }: PropsWithChildren<object>) => {
   const [cart, setCart] = useLocalStorage("cart", []);
+
+  const clearCart = () => {
+    setCart([]);
+  };
 
   const addToCart = (product: IProduct) => {
     const existingItem = cart.find(
@@ -77,6 +82,7 @@ const CartProvider = ({ children }: PropsWithChildren<object>) => {
           increaseCartQuantity,
           decreaseCartQuantity,
           totalSum,
+          clearCart,
         }}
       >
         {children}
