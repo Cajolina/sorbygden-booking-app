@@ -4,6 +4,7 @@ const { eventRouter } = require('./resources/routes/event.router');
 const { facilityRouter } = require('./resources/routes/facility.router')
 const { categoryRouter } = require('./resources/routes/category.router');
 const { adminRouter } = require('./resources/routes/admin.router');
+const { orderRouter } = require('./resources/routes/order.router');
 
 const app = express();
 
@@ -17,10 +18,12 @@ app.use(cookieSession({
     httpOnly: true,
 }))
 
+
 app.use('/api', eventRouter);
 app.use('/api', facilityRouter);
 app.use('/api', categoryRouter);
 app.use('/api', adminRouter)
+app.use('/api', orderRouter)
 
 
 module.exports = { app }
