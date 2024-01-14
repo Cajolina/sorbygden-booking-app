@@ -1,0 +1,9 @@
+.ProductListContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 2rem;
+}
+
+.facilityCard {
+    margin: 2rem;
+}

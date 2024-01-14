@@ -2,7 +2,7 @@ import { useCartContext } from "../context/CartContext";
 import TrashCanIcon from "../assets/svgs/TrashCanIcon";
 import MinusIcon from "../assets/svgs/MinusIcon";
 import PlusIcon from "../assets/svgs/PlusIcon";
-import { Button } from "antd";
+import { Button, Card } from "antd";
 import { useStripeCheckoutContext } from "../context/StripeCheckoutContext";
 import "../styling/CartDisplay.css";
 function CartDisplay() {
@@ -19,15 +19,15 @@ function CartDisplay() {
   };
 
   return (
-    <div className="cartContainer">
+    <Card className="cartContainer" hoverable>
       <h1>Kundvagn</h1>
       {cart.map((cartItem) => (
         <div className="cart" key={cartItem.product._id}>
-          {/* <img
+          <img
             src={cartItem.product.images[0]}
             alt=""
-            style={{ width: "160px", height: "auto" }}
-          /> */}
+            style={{ width: "80px", height: "80px" }}
+          />
           <div>
             <h2>{cartItem.product.title}</h2>
             <p>{cartItem.product.price}</p>
@@ -67,10 +67,9 @@ function CartDisplay() {
         </div>
       ))}
 
-      {cart.length > 0 && <h3>{`Totalsumma: ${totalSum} kr`}</h3> && (
-        <Button onClick={handleCheckout}>Till betalning</Button>
-      )}
-    </div>
+      <h3>{`Totalsumma: ${totalSum} kr`}</h3>
+      <Button onClick={handleCheckout}>Till betalning</Button>
+    </Card>
   );
 }
 
