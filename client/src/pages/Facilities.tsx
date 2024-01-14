@@ -3,9 +3,11 @@ import { useFacilityContext } from "../context/FacilityContext";
 import AddToCartButton from "../components/AddToCartButton";
 import CartDisplay from "../components/CartDisplay";
 import BookingButton from "../components/BookingButton";
+import { useCartContext } from "../context/CartContext";
 
 function Facilities() {
   const { facilities } = useFacilityContext();
+  const { cart } = useCartContext();
   return (
     <div>
       <h1>Lokaler</h1>
@@ -35,7 +37,7 @@ function Facilities() {
           <BookingButton />
         </div>
       ))}
-      <CartDisplay />
+      {cart.length > 0 ? <CartDisplay /> : null}
     </div>
   );
 }

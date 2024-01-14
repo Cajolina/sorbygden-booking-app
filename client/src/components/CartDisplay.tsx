@@ -4,6 +4,7 @@ import MinusIcon from "../assets/svgs/MinusIcon";
 import PlusIcon from "../assets/svgs/PlusIcon";
 import { Button } from "antd";
 import { useStripeCheckoutContext } from "../context/StripeCheckoutContext";
+import "../styling/CartDisplay.css";
 function CartDisplay() {
   const {
     cart,
@@ -18,9 +19,22 @@ function CartDisplay() {
   };
 
   return (
-    <div>
+    <div className="cartContainer">
+      <h1>Kundvagn</h1>
       {cart.map((cartItem) => (
-        <div key={cartItem.product._id}>
+        <div className="cart" key={cartItem.product._id}>
+          {/* <img
+            src={cartItem.product.images[0]}
+            alt=""
+            style={{ width: "160px", height: "auto" }}
+          /> */}
+          <div>
+            <h2>{cartItem.product.title}</h2>
+            <p>{cartItem.product.price}</p>
+            <p>{cartItem.quantity} st</p>
+            <p>{cartItem.product.price * cartItem.quantity}</p>
+          </div>
+
           <Button
             onClick={(e) => {
               e.preventDefault();
@@ -28,15 +42,6 @@ function CartDisplay() {
             }}
             icon={<TrashCanIcon />}
           />
-          <img
-            src={cartItem.product.images[0]}
-            alt=""
-            style={{ width: "50%", height: "auto" }}
-          />
-          <p>{cartItem.product.title}</p>
-          <p>{cartItem.product.price}</p>
-          <p>{cartItem.quantity} st</p>
-          <p>{cartItem.product.price * cartItem.quantity}</p>
           {cartItem.product.type === "event" && (
             <>
               <Button
