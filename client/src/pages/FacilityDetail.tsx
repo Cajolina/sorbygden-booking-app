@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 import { IFacility } from "../Interfaces";
 import { useParams } from "react-router-dom";
 import BookingButton from "../components/BookingButton";
+import { useCartContext } from "../context/CartContext";
+import CartDisplay from "../components/CartDisplay";
 
 function FacilityDetail() {
   const [facility, setFacility] = useState<IFacility>();
 
   const { id } = useParams();
-
+  const { cart } = useCartContext();
   useEffect(() => {
     async function fetchFacility() {
       try {
@@ -47,6 +49,7 @@ function FacilityDetail() {
         </li>
       </ul>
       <BookingButton />
+      {cart.length > 0 ? <CartDisplay /> : null}
     </div>
   ) : null;
 }

@@ -135,19 +135,21 @@ async function createCheckoutSession(req, res) {
 
 async function verifySession(req, res) {
     try {
+
         const { sessionId, orderItems } = req.body;
         console.log('Received sessionId:', sessionId);
         console.log('Received orderItems:', orderItems);
         const session = await stripe.checkout.sessions.retrieve(req.body.sessionId);
         if (session.payment_status !== "paid") {
             return res.status(400).json({ verified: false })
-        }
+        } console.log(session.metadata);
         const productMetadata = session.metadata.product;
         // console.log(productMetadata);
         const productId = productMetadata.product;
-        console.log(productId)
+        // console.log(productId)
+
         const line_items = await stripe.checkout.sessions.listLineItems(req.body.sessionId);
-        console.log(line_items);
+        // console.log(line_items);
 
         if (!Array.isArray(productMetadata)) {
             console.error("Product metadata is not an array");

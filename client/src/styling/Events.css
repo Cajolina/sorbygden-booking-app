@@ -1,4 +1,9 @@
 .ProductListContainer {
     display: flex;
+    flex-wrap: wrap;
+    margin: 2rem;
+}
 
+.eventCard {
+    margin: 2rem;
 }
