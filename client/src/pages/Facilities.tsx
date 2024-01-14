@@ -4,39 +4,36 @@ import AddToCartButton from "../components/AddToCartButton";
 import CartDisplay from "../components/CartDisplay";
 import BookingButton from "../components/BookingButton";
 import { useCartContext } from "../context/CartContext";
+import { Card, Image } from "antd";
+import "../styling/Facilities.css";
+const { Meta } = Card;
 
 function Facilities() {
   const { facilities } = useFacilityContext();
   const { cart } = useCartContext();
+
   return (
     <div>
       <h1>Lokaler</h1>
-      {facilities.map((facility) => (
-        <div key={facility._id}>
-          <ul>
-            <li>{facility._id}</li>
-            <li>{facility.title}</li>
-            <li>{facility.description}</li>
-            <li>{facility.price}</li>
-            <li>
-              <ul>
-                {facility.images.map((image, index) => (
-                  <li key={index}>
-                    <img src={image} alt={`Image ${index + 1}`} />
-                  </li>
-                ))}
-              </ul>
-            </li>
-            <li>{facility.availability}</li>
-            <li>{facility.categories}</li>
-          </ul>
-          <Link to={`/lokaler/${facility._id}`} key={facility._id}>
-            <p>Läs mer här</p>
-          </Link>
-          <AddToCartButton product={facility} />
-          <BookingButton />
-        </div>
-      ))}
+      <div className="ProductListContainer">
+        {facilities.map((facility) => (
+          <Card
+            className="facilityCard"
+            key={facility._id}
+            hoverable
+            style={{ width: 400, marginBottom: "20px" }}
+            cover={<Image alt={facility.title} src={facility.images[0]} />}
+          >
+            <Meta title={facility.title} description={facility.description} />
+            <p>Pris: {facility.price}</p>
+            <Link to={`/lokaler/${facility._id}`}>
+              <p>Läs mer här</p>
+            </Link>
+            <AddToCartButton product={facility} />
+            <BookingButton />
+          </Card>
+        ))}
+      </div>
       {cart.length > 0 ? <CartDisplay /> : null}
     </div>
   );
