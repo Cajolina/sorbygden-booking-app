@@ -1,4 +1,4 @@
-import { createContext, useContext, PropsWithChildren, useEffect } from "react";
+import { createContext, useContext, PropsWithChildren } from "react";
 import { IStripeCheckoutContext } from "../Interfaces";
 import { useCartContext } from "./CartContext";
 
@@ -11,9 +11,7 @@ export const useStripeCheckoutContext = () => useContext(StripeCheckoutContext);
 
 const StripeCheckoutProvider = ({ children }: PropsWithChildren<object>) => {
   const { cart, clearCart } = useCartContext();
-  useEffect(() => {
-    verifyPayment();
-  }, []);
+
   const handleCheckout = async () => {
     try {
       console.log("Handle Stripe checkout function");
@@ -51,7 +49,7 @@ const StripeCheckoutProvider = ({ children }: PropsWithChildren<object>) => {
           "Content-Type": "application/json",
         },
 
-        body: JSON.stringify({ sessionId }),
+        body: JSON.stringify({ sessionId, orderItems: cart }),
       });
       const { verified } = await response.json();
 
