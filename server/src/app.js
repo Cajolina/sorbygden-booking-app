@@ -19,11 +19,11 @@ app.use(cookieSession({
 }))
 
 
-app.use('/api', eventRouter);
-app.use('/api', facilityRouter);
-app.use('/api', categoryRouter);
-app.use('/api', adminRouter)
-app.use('/api', orderRouter)
+app.use('/api', eventRouter, facilityRouter, categoryRouter, adminRouter, orderRouter);
+// app.use('/api', facilityRouter);
+// app.use('/api', categoryRouter);
+// app.use('/api', adminRouter)
+// app.use('/api', orderRouter)
 
 
 module.exports = { app }
