@@ -1,12 +1,18 @@
 const { model, Schema, models } = require("mongoose");
 const Joi = require("joi");
 
-const OrderItemSchema = new Schema({
-    products: [{
-        product: { type: Schema.Types.ObjectId, required: true, refPath: 'productType' },
-        productType: { type: String, enum: ['Event', 'Facility'], required: true },
+// const ProductType = new Schema({
+//     productType: { type: String, enum: ['event', 'facility'] }
+// })
 
-    }],
+const OrderItemSchema = new Schema({
+    // products: [{
+    //     product: { type: Schema.Types.ObjectId, required: true, refPath: 'productType' },
+    //     productType: { type: String, enum: ['Event', 'Facility'], required: true },
+
+    // }],
+    product: { type: Schema.Types.ObjectId, required: true, refPath: 'productType' },
+    productType: { type: String, enum: ['event', 'facility'], required: true },
     quantity: { type: Number, required: true },
     price: { type: Number, default: 0 },
 });
@@ -33,11 +39,12 @@ const OrderValidationJoiSchema = Joi.object({
     created: Joi.string().isoDate(),
     sessionId: Joi.string().required(),
     orderItems: Joi.array().items(Joi.object({
-        products: Joi.array().items(Joi.object({
-            product: Joi.string().required(),
-            productType: Joi.string().valid('Event', 'Facility').required(),
+        // products: Joi.array().items(Joi.object({
+        //     product: Joi.string().required(),
+        //     productType: Joi.string().valid('Event', 'Facility').required(),
 
-        })),
+        // })),
+        product: Joi.string().required(),
         quantity: Joi.number().required(),
         price: Joi.number().default(0),
     })).required(),
