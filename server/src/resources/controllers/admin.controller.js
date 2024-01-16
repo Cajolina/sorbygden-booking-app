@@ -70,4 +70,12 @@ async function logout(req, res) {
     res.status(204).json(null);
 }
 
-module.exports = { register, login, logout }
+async function authorize(req, res) {
+    if (!req.session._id) {
+        return res.status(401).json("You are not logged in");
+    }
+    res.status(200).json(req.session);
+}
+
+
+module.exports = { register, login, logout, authorize }

@@ -58,3 +58,22 @@ export interface IStripeCheckoutContext {
   handleCheckout: () => void;
   verifyPayment: () => void;
 }
+
+//login
+
+export interface Admin {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  isAdmin: boolean;
+}
+export interface Credentials {
+  email: string;
+  password: string;
+}
+export interface loginContext {
+  loggedInAdmin: Admin | null;
+  loginAdmin: (admin: Credentials) => Promise<string | void>;
+  logoutAdmin: () => void;
+}
