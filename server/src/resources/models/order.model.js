@@ -1,9 +1,9 @@
 const { model, Schema, models } = require("mongoose");
 const Joi = require("joi");
 
-// const ProductType = new Schema({
-//     productType: { type: String, enum: ['event', 'facility'] }
-// })
+const ProductType = new Schema({
+    productType: { type: String, enum: ['event', 'facility'] }
+})
 
 const OrderItemSchema = new Schema({
     // products: [{
@@ -11,10 +11,11 @@ const OrderItemSchema = new Schema({
     //     productType: { type: String, enum: ['Event', 'Facility'], required: true },
 
     // }],
-    product: { type: Schema.Types.ObjectId, required: true, refPath: 'productType' },
-    productType: { type: String, enum: ['event', 'facility'], required: true },
+    // product: { type: Schema.Types.ObjectId, required: true, refPath: 'productType' },
+    // productType: { type: String, enum: ['event', 'facility'], required: true },
+    product: { type: Schema.Types.ObjectId, required: true, ref: 'event' },
     quantity: { type: Number, required: true },
-    price: { type: Number, default: 0 },
+    // price: { type: Number, default: 0 },
 });
 
 const OrderSchema = new Schema({
@@ -27,7 +28,11 @@ const OrderSchema = new Schema({
         required: true,
         default: Math.floor(Math.random() * 1000000),
     },
-    orderItems: { type: [OrderItemSchema], required: true },
+    // orderItems: { type: [OrderItemSchema], required: true },
+    orderItems: [{
+        product: { type: Schema.Types.ObjectId, required: true, ref: 'event' },
+        quantity: { type: Number, required: true }
+    }],
     totalOrderAmount: { type: Number, required: true }
 
 }
@@ -46,7 +51,7 @@ const OrderValidationJoiSchema = Joi.object({
         // })),
         product: Joi.string().required(),
         quantity: Joi.number().required(),
-        price: Joi.number().default(0),
+        // price: Joi.number().default(0),
     })).required(),
 });
 

@@ -57,6 +57,7 @@ export interface ICartContext {
 export interface IStripeCheckoutContext {
   handleCheckout: () => void;
   verifyPayment: () => void;
+  getOrders: () => Promise<IOrderDetails[]>;
 }
 
 //login
@@ -76,4 +77,29 @@ export interface loginContext {
   loggedInAdmin: Admin | null;
   loginAdmin: (admin: Credentials) => Promise<string | void>;
   logoutAdmin: () => void;
+}
+
+//ORDER
+
+export interface IorderItemInfo {
+  product: string;
+  quantity: number;
+}
+
+export interface IOrderItemDetails {
+  productInfo: IEvent | IFacility;
+  orderItemInfo: IorderItemInfo;
+}
+
+export interface IOrderInfo {
+  created: string;
+  orderItems: [];
+  orderNumber: number;
+  totalOrderAmount: number;
+  _id: string;
+}
+
+export interface IOrderDetails {
+  orderInfo: IOrderInfo;
+  productDetails: IOrderItemDetails[];
 }
