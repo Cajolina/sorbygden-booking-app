@@ -1,10 +1,18 @@
 import { createContext, useContext, PropsWithChildren } from "react";
-import { IStripeCheckoutContext } from "../Interfaces";
+import {
+  IEvent,
+  IFacility,
+  IOrderDetails,
+  IOrderItemDetails,
+  IStripeCheckoutContext,
+  IorderItemInfo,
+} from "../Interfaces";
 import { useCartContext } from "./CartContext";
 
 const StripeCheckoutContext = createContext<IStripeCheckoutContext>({
   handleCheckout: () => {},
   verifyPayment: () => {},
+  getOrders: () => Promise.resolve([]),
 });
 
 export const useStripeCheckoutContext = () => useContext(StripeCheckoutContext);
@@ -64,8 +72,47 @@ const StripeCheckoutProvider = ({ children }: PropsWithChildren<object>) => {
     }
   };
 
+  async function getOrders() {
+    try {
+      const response = await fetch("/api/orders");
+      const orders = await response.json();
+
+      const ordersWithProductInfo = [];
+
+      for (const order of orders) {
+        const orderDetails: IOrderDetails = {
+          orderInfo: order,
+          productDetails: [],
+        };
+
+        for (const orderItem of order.orderItems) {
+          const productId = orderItem.product;
+
+          const productInfoResponse = await fetch(`/api/events/${productId}`);
+          const productInfo = await productInfoResponse.json();
+
+          const orderItemDetails = {
+            productInfo: productInfo as IEvent | IFacility,
+            orderItemInfo: orderItem as IorderItemInfo,
+          } as IOrderItemDetails;
+
+          orderDetails.productDetails.push(orderItemDetails);
+        }
+
+        ordersWithProductInfo.push(orderDetails);
+      }
+
+      console.log(ordersWithProductInfo);
+      return ordersWithProductInfo;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
   return (
-    <StripeCheckoutContext.Provider value={{ handleCheckout, verifyPayment }}>
+    <StripeCheckoutContext.Provider
+      value={{ handleCheckout, verifyPayment, getOrders }}
+    >
       {children}
     </StripeCheckoutContext.Provider>
   );

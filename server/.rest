@@ -140,3 +140,4 @@ GET http://localhost:3000/api/categories/
 GET http://localhost:3000/api/facilities/byCategory/659809627eb39e14a2c58bef
 
 ###
+GET http://localhost:3000/api/orders
