@@ -22,7 +22,7 @@ function Events() {
               key={event._id}
               hoverable
               style={{ width: 400, marginBottom: "20px" }}
-              cover={<Image alt={event.title} src={event.images[0]} />} // Assuming the first image is the cover
+              cover={<Image alt={event.title} src={event.images[0]} />}
             >
               <Meta title={event.title} description={event.description} />
               <p>Pris: {event.price}</p>
