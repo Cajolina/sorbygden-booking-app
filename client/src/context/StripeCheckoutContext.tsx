@@ -72,6 +72,43 @@ const StripeCheckoutProvider = ({ children }: PropsWithChildren<object>) => {
     }
   };
 
+  // async function getOrders() {
+  //   try {
+  //     const response = await fetch("/api/orders");
+  //     const orders = await response.json();
+
+  //     const ordersWithProductInfo = [];
+
+  //     for (const order of orders) {
+  //       const orderDetails: IOrderDetails = {
+  //         orderInfo: order,
+  //         productDetails: [],
+  //       };
+
+  //       for (const orderItem of order.orderItems) {
+  //         const productId = orderItem.product;
+
+  //         const productInfoResponse = await fetch(`/api/events/${productId}`);
+  //         const productInfo = await productInfoResponse.json();
+
+  //         const orderItemDetails = {
+  //           productInfo: productInfo as IEvent | IFacility,
+  //           orderItemInfo: orderItem as IorderItemInfo,
+  //         } as IOrderItemDetails;
+
+  //         orderDetails.productDetails.push(orderItemDetails);
+  //       }
+
+  //       ordersWithProductInfo.push(orderDetails);
+  //     }
+
+  //     console.log(ordersWithProductInfo);
+  //     return ordersWithProductInfo;
+  //   } catch (error) {
+  //     console.log(error);
+  //     throw error;
+  //   }
+  // }
   async function getOrders() {
     try {
       const response = await fetch("/api/orders");
@@ -87,9 +124,19 @@ const StripeCheckoutProvider = ({ children }: PropsWithChildren<object>) => {
 
         for (const orderItem of order.orderItems) {
           const productId = orderItem.product;
+          let productInfo;
 
-          const productInfoResponse = await fetch(`/api/events/${productId}`);
-          const productInfo = await productInfoResponse.json();
+          if (orderItem.productType === "event") {
+            // Fetch event details
+            const eventInfoResponse = await fetch(`/api/events/${productId}`);
+            productInfo = await eventInfoResponse.json();
+          } else if (orderItem.productType === "facility") {
+            // Fetch facility details
+            const facilityInfoResponse = await fetch(
+              `/api/facilities/${productId}`
+            );
+            productInfo = await facilityInfoResponse.json();
+          }
 
           const orderItemDetails = {
             productInfo: productInfo as IEvent | IFacility,
