@@ -2,27 +2,41 @@
     height: calc(100vh - 64px);
 }
 
+
 .ant-layout-sider {
     height: calc(100vh - 64px);
+}
+
+.ant-layout .adminpanel-order-content {
+    min-height: calc(100vh - 155px);
+}
+
+.ant-layout-sider .adminpanel-order-content {
+    min-height: calc(100vh - 155px)
+}
+
+.ant-layout-content .adminpanel-order-content {
+    overflow-y: auto;
+    max-height: calc(100vh - 155px);
+
 }
 
 .ant-layout-header {
     color: #fff;
     display: flex;
     justify-content: space-between;
-
-
+    padding: 0 16px;
 }
 
 h1 {
-    padding-left: 2rem
+    padding-left: 16px;
 }
 
 .ant-layout-header p {
     color: rgba(255, 255, 255, 0.65);
-    padding-right: 2rem
+    padding-right: 16px;
 }
 
 .logoutBtn {
-    margin: 3.125rem
+    margin: 1rem 16px;
 }
