@@ -18,7 +18,7 @@
 .ant-layout-content .adminpanel-order-content {
     overflow-y: auto;
     max-height: calc(100vh - 155px);
-
+    padding-bottom: 4rem;
 }
 
 .ant-layout-header {
