@@ -1,12 +1,13 @@
-import { Table } from "antd";
+import { Space, Table } from "antd";
 import type { TableColumnProps } from "antd";
 import { useFacilityContext } from "../context/FacilityContext";
 import { useCategoryContext } from "../context/CategoryContext";
 import { useEffect } from "react";
-
+import { DeleteOutlined } from "@ant-design/icons";
+import { IFacility } from "../Interfaces";
 function AdminFacilities() {
   const { fetchCategories, categories } = useCategoryContext();
-  const { facilities } = useFacilityContext();
+  const { facilities, deleteFacility } = useFacilityContext();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,7 +17,7 @@ function AdminFacilities() {
     fetchData();
   }, [fetchCategories]);
 
-  interface DataType {
+  interface DataTypeFacility {
     key: string;
     title: string;
     description: string;
@@ -27,7 +28,7 @@ function AdminFacilities() {
 
     type: string;
   }
-  const columns: TableColumnProps<DataType>[] = [
+  const columns: TableColumnProps<DataTypeFacility>[] = [
     {
       title: "Title",
       dataIndex: "title",
@@ -88,6 +89,15 @@ function AdminFacilities() {
       dataIndex: "type",
       key: "type",
       render: (text: string) => <p>{text}</p>,
+    },
+    {
+      title: "Delete",
+      key: "action",
+      render: (record: IFacility) => (
+        <Space size="middle">
+          <DeleteOutlined onClick={() => deleteFacility(record)} />
+        </Space>
+      ),
     },
   ];
   return (

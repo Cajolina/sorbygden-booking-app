@@ -14,6 +14,7 @@ export interface IEvent {
 export interface IEventContext {
   events: IEvent[];
   fetchEvents: () => void;
+  deleteEvent: (data: IEvent) => void;
 }
 
 // Facility interface
@@ -32,6 +33,7 @@ export interface IFacility {
 export interface IFacilityContext {
   facilities: IFacility[];
   fetchFacilities: () => void;
+  deleteFacility: (data: IFacility) => void;
 }
 
 //Category interface

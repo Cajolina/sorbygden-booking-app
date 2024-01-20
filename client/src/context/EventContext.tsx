@@ -10,6 +10,7 @@ import { IEvent, IEventContext } from "../Interfaces";
 const EventContext = createContext<IEventContext>({
   events: [],
   fetchEvents: () => Promise.resolve(),
+  deleteEvent: () => Promise.resolve(),
 });
 
 export const useEventContext = () => useContext(EventContext);
@@ -31,9 +32,25 @@ const EventProvider = ({ children }: PropsWithChildren) => {
     fetchEvents();
   }, []);
 
+  async function deleteEvent(data: IEvent) {
+    data = { ...data, deleted: true };
+    try {
+      await fetch(`/api/events/${data._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      fetchEvents();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div>
-      <EventContext.Provider value={{ events, fetchEvents }}>
+      <EventContext.Provider value={{ events, fetchEvents, deleteEvent }}>
         {children}
       </EventContext.Provider>
     </div>

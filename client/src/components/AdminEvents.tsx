@@ -1,11 +1,13 @@
-import { Table } from "antd";
+import { Space, Table } from "antd";
 import type { TableColumnProps } from "antd";
 import { useEventContext } from "../context/EventContext";
 import { useCategoryContext } from "../context/CategoryContext";
 import { useEffect } from "react";
+import { DeleteOutlined } from "@ant-design/icons";
+import { IEvent } from "../Interfaces";
 function AdminEvents() {
   const { fetchCategories, categories } = useCategoryContext();
-  const { events } = useEventContext();
+  const { events, deleteEvent } = useEventContext();
   useEffect(() => {
     const fetchData = async () => {
       await fetchCategories();
@@ -13,7 +15,7 @@ function AdminEvents() {
 
     fetchData();
   }, [fetchCategories]);
-  interface DataType {
+  interface DataTypeEvent {
     key: string;
     title: string;
     description: string;
@@ -21,10 +23,9 @@ function AdminEvents() {
     images: string[];
     inStock: number;
     categories: string[];
-
     type: string;
   }
-  const columns: TableColumnProps<DataType>[] = [
+  const columns: TableColumnProps<DataTypeEvent>[] = [
     {
       title: "Title",
       dataIndex: "title",
@@ -85,6 +86,15 @@ function AdminEvents() {
       dataIndex: "type",
       key: "type",
       render: (text: string) => <p>{text}</p>,
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (record: IEvent) => (
+        <Space size="middle">
+          <DeleteOutlined onClick={() => deleteEvent(record)} />
+        </Space>
+      ),
     },
   ];
   return (
