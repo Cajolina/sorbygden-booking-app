@@ -1,3 +1,4 @@
+//Event interface
 export interface IEvent {
   _id: string;
   title: string;
@@ -15,7 +16,7 @@ export interface IEventContext {
   fetchEvents: () => void;
 }
 
-//
+// Facility interface
 export interface IFacility {
   _id: string;
   title: string;
@@ -33,6 +34,18 @@ export interface IFacilityContext {
   fetchFacilities: () => void;
 }
 
+//Category interface
+export interface ICategoryContextType {
+  fetchCategories: () => Promise<void>;
+  categories: ICategories[];
+  setCategories: React.Dispatch<React.SetStateAction<ICategories[]>>;
+}
+
+export interface ICategories {
+  _id: string;
+  title: string;
+  description: string;
+}
 //Interfaces for cart
 export type IProduct = IEvent | IFacility;
 
