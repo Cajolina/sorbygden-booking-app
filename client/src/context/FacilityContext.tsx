@@ -10,6 +10,7 @@ import { IFacility, IFacilityContext } from "../Interfaces";
 const FacilityContext = createContext<IFacilityContext>({
   facilities: [],
   fetchFacilities: () => Promise.resolve(),
+  updateFacility: () => Promise.resolve(),
   deleteFacility: () => Promise.resolve(),
 });
 
@@ -32,6 +33,22 @@ const FacilityProvider = ({ children }: PropsWithChildren) => {
     fetchFacilities();
   }, []);
 
+  //Update facility
+  async function updateFacility(data: IFacility) {
+    try {
+      await fetch(`/api/facilities/${data._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      fetchFacilities();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async function deleteFacility(data: IFacility) {
     data = { ...data, deleted: true };
     try {
@@ -51,7 +68,7 @@ const FacilityProvider = ({ children }: PropsWithChildren) => {
   return (
     <div>
       <FacilityContext.Provider
-        value={{ facilities, fetchFacilities, deleteFacility }}
+        value={{ facilities, fetchFacilities, deleteFacility, updateFacility }}
       >
         {children}
       </FacilityContext.Provider>
