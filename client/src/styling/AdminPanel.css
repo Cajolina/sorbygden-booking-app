@@ -40,3 +40,12 @@ h1 {
 .logoutBtn {
     margin: 1rem 16px;
 }
+
+.saveBtn {
+    color: #73d13d;
+}
+
+.saveBtn:hover {
+    color: #73d13d !important;
+    border-color: #73d13d !important;
+}

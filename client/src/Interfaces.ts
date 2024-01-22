@@ -10,10 +10,24 @@ export interface IEvent {
   deleted?: boolean;
   type: "event";
 }
-
+export interface ICreateEvent extends Omit<IEvent, "_id" | "deleted"> {}
 export interface IEventContext {
   events: IEvent[];
+  createEvent: (event: ICreateEvent) => object;
   fetchEvents: () => void;
+  deleteEvent: (data: IEvent) => void;
+  updateEvent: (data: IEvent) => void;
+}
+// Define the data structure for events in admin event table
+export interface DataTypeEvent {
+  key: string;
+  title: string;
+  description: string;
+  price: number;
+  images: string[];
+  inStock: number;
+  categories: string[];
+  type: string;
 }
 
 // Facility interface
@@ -28,10 +42,27 @@ export interface IFacility {
   deleted?: boolean;
   type: "facility";
 }
-
+export interface ICreateFacility
+  extends Omit<IFacility, "_id" | "deleted" | "availability"> {}
 export interface IFacilityContext {
   facilities: IFacility[];
   fetchFacilities: () => void;
+  createFacility: (data: ICreateFacility) => object;
+  deleteFacility: (data: IFacility) => void;
+  updateFacility: (data: IFacility) => void;
+}
+
+// Define the data structure for facility in admin facility table
+export interface DataTypeFacility {
+  key: string;
+  title: string;
+  description: string;
+  price: number;
+  images: string[];
+  // avalability: boolean;
+  categories: string[];
+
+  type: string;
 }
 
 //Category interface
