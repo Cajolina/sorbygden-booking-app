@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 import { DeleteOutlined, EditOutlined, CheckOutlined } from "@ant-design/icons";
 import { DataTypeFacility, IFacility } from "../Interfaces";
+import AdminCreateFacility from "./AdminCreateFacility";
 function AdminFacilities() {
   const { fetchCategories, categories } = useCategoryContext();
   const { facilities, deleteFacility, updateFacility } = useFacilityContext();
@@ -231,8 +232,10 @@ function AdminFacilities() {
             ...facility,
             key: facility._id,
           }))}
+          pagination={{ pageSize: 5 }}
         />
       </Form>
+      <AdminCreateFacility />
     </div>
   );
 }

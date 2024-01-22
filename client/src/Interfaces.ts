@@ -10,9 +10,10 @@ export interface IEvent {
   deleted?: boolean;
   type: "event";
 }
-
+export interface ICreateEvent extends Omit<IEvent, "_id" | "deleted"> {}
 export interface IEventContext {
   events: IEvent[];
+  createEvent: (event: ICreateEvent) => object;
   fetchEvents: () => void;
   deleteEvent: (data: IEvent) => void;
   updateEvent: (data: IEvent) => void;
@@ -41,10 +42,12 @@ export interface IFacility {
   deleted?: boolean;
   type: "facility";
 }
-
+export interface ICreateFacility
+  extends Omit<IFacility, "_id" | "deleted" | "availability"> {}
 export interface IFacilityContext {
   facilities: IFacility[];
   fetchFacilities: () => void;
+  createFacility: (data: ICreateFacility) => object;
   deleteFacility: (data: IFacility) => void;
   updateFacility: (data: IFacility) => void;
 }

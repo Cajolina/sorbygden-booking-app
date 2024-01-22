@@ -5,11 +5,12 @@ import {
   useState,
   useEffect,
 } from "react";
-import { IFacility, IFacilityContext } from "../Interfaces";
+import { ICreateFacility, IFacility, IFacilityContext } from "../Interfaces";
 
 const FacilityContext = createContext<IFacilityContext>({
   facilities: [],
   fetchFacilities: () => Promise.resolve(),
+  createFacility: () => Object,
   updateFacility: () => Promise.resolve(),
   deleteFacility: () => Promise.resolve(),
 });
@@ -32,6 +33,24 @@ const FacilityProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     fetchFacilities();
   }, []);
+
+  //Create facility
+  async function createFacility(event: ICreateFacility) {
+    try {
+      const response = await fetch("/api/facilities", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(event),
+      });
+      const data = await response.json();
+      console.log(data);
+      fetchFacilities();
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   //Update facility
   async function updateFacility(data: IFacility) {
@@ -68,7 +87,13 @@ const FacilityProvider = ({ children }: PropsWithChildren) => {
   return (
     <div>
       <FacilityContext.Provider
-        value={{ facilities, fetchFacilities, deleteFacility, updateFacility }}
+        value={{
+          facilities,
+          fetchFacilities,
+          deleteFacility,
+          updateFacility,
+          createFacility,
+        }}
       >
         {children}
       </FacilityContext.Provider>

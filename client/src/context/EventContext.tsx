@@ -5,10 +5,11 @@ import {
   useState,
   useEffect,
 } from "react";
-import { IEvent, IEventContext } from "../Interfaces";
+import { IEvent, IEventContext, ICreateEvent } from "../Interfaces";
 
 const EventContext = createContext<IEventContext>({
   events: [],
+  createEvent: () => Object,
   fetchEvents: () => Promise.resolve(),
   updateEvent: () => Promise.resolve(),
   deleteEvent: () => Promise.resolve(),
@@ -34,6 +35,23 @@ const EventProvider = ({ children }: PropsWithChildren) => {
     fetchEvents();
   }, []);
 
+  //Create event
+  async function createEvent(event: ICreateEvent) {
+    try {
+      const response = await fetch("/api/events", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(event),
+      });
+      const data = await response.json();
+      console.log(data);
+      fetchEvents();
+    } catch (error) {
+      console.log(error);
+    }
+  }
   //Update event
   async function updateEvent(data: IEvent) {
     try {
@@ -70,7 +88,7 @@ const EventProvider = ({ children }: PropsWithChildren) => {
   return (
     <div>
       <EventContext.Provider
-        value={{ events, fetchEvents, updateEvent, deleteEvent }}
+        value={{ events, fetchEvents, updateEvent, deleteEvent, createEvent }}
       >
         {children}
       </EventContext.Provider>

@@ -5,6 +5,7 @@ import { useCategoryContext } from "../context/CategoryContext";
 import { useEffect, useState } from "react";
 import { DeleteOutlined, EditOutlined, CheckOutlined } from "@ant-design/icons";
 import { DataTypeEvent, IEvent } from "../Interfaces";
+import AdminCreateEvent from "./AdminCreateEvent";
 function AdminEvents() {
   const { fetchCategories, categories } = useCategoryContext();
   const { events, updateEvent, deleteEvent } = useEventContext();
@@ -22,6 +23,7 @@ function AdminEvents() {
   // Define the columns for the table
   const columns: TableColumnProps<DataTypeEvent>[] = [
     // Images column with rendering logic for displaying images
+
     {
       title: "Images",
       dataIndex: "images",
@@ -243,8 +245,11 @@ function AdminEvents() {
         <Table
           columns={columns}
           dataSource={events.map((event) => ({ ...event, key: event._id }))}
+          pagination={{ pageSize: 5 }}
         />
       </Form>
+
+      <AdminCreateEvent />
     </div>
   );
 }
