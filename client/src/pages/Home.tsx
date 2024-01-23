@@ -1,4 +1,4 @@
-import heroVideo from "../assets/videos/hero-video.mp4";
+import heroVideo from "../assets/videos/hero-video-3.mp4";
 
 import "../styling/Home.css";
 
