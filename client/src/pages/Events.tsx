@@ -5,7 +5,7 @@ import CartDisplay from "../components/CartDisplay";
 import "../styling/Events.css";
 import { Card, Image } from "antd";
 import { useCartContext } from "../context/CartContext";
-
+import eventImage from "../assets/images/event-image.jpg";
 const { Meta } = Card;
 
 function Events() {
@@ -13,7 +13,15 @@ function Events() {
   const { cart } = useCartContext();
   return (
     <div>
-      <h1>EVENEMANG</h1>
+      <div className="imageTitleContainer">
+        <img
+          src={eventImage}
+          alt="eventImage"
+          style={{ objectFit: "cover", width: "100%", height: "50" }}
+        ></img>
+        <h1 className="page-title-green">Evenemang</h1>
+      </div>
+
       <div>
         <div className="ProductListContainer">
           {events.map((event) => (
