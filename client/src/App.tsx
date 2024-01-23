@@ -21,7 +21,7 @@ import Footer from "./components/Footer";
 
 function App() {
   const location = useLocation();
-  const pagesWithoutHeaderFooter = ["/login", "/adminpanel", "/confirmation"];
+  const pagesWithoutHeaderFooter = ["/login", "/adminpanel"];
 
   const shouldRenderHeaderFooter = !pagesWithoutHeaderFooter.includes(
     location.pathname

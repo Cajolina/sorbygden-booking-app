@@ -1,4 +1,4 @@
-import { createContext, useContext, PropsWithChildren } from "react";
+import { createContext, useContext, PropsWithChildren, useState } from "react";
 import {
   IEvent,
   IFacility,
@@ -13,13 +13,14 @@ const StripeCheckoutContext = createContext<IStripeCheckoutContext>({
   handleCheckout: () => {},
   verifyPayment: () => {},
   getOrders: () => Promise.resolve([]),
+  isVerified: false,
 });
 
 export const useStripeCheckoutContext = () => useContext(StripeCheckoutContext);
 
 const StripeCheckoutProvider = ({ children }: PropsWithChildren<object>) => {
   const { cart, clearCart } = useCartContext();
-
+  const [isVerified, setIsVerified] = useState(false);
   const handleCheckout = async () => {
     try {
       console.log("Handle Stripe checkout function");
@@ -63,9 +64,11 @@ const StripeCheckoutProvider = ({ children }: PropsWithChildren<object>) => {
 
       if (verified) {
         console.log("is verified");
+        setIsVerified(true);
         localStorage.removeItem("session-id");
       } else {
         console.log("is NOT verified");
+        setIsVerified(false);
       }
     } catch (error) {
       console.log(error);
@@ -158,7 +161,7 @@ const StripeCheckoutProvider = ({ children }: PropsWithChildren<object>) => {
   }
   return (
     <StripeCheckoutContext.Provider
-      value={{ handleCheckout, verifyPayment, getOrders }}
+      value={{ handleCheckout, verifyPayment, getOrders, isVerified }}
     >
       {children}
     </StripeCheckoutContext.Provider>

@@ -102,6 +102,7 @@ export interface IStripeCheckoutContext {
   handleCheckout: () => void;
   verifyPayment: () => void;
   getOrders: () => Promise<IOrderDetails[]>;
+  isVerified: boolean;
 }
 
 //login
