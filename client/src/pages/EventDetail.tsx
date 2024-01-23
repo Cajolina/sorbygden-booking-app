@@ -5,6 +5,7 @@ import AddToCartButton from "../components/AddToCartButton";
 import CartDisplay from "../components/CartDisplay";
 import "../styling/Events.css";
 import { useCartContext } from "../context/CartContext";
+
 function EventDetail() {
   const [event, setEvent] = useState<IEvent>();
 

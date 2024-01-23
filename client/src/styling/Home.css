@@ -1,0 +1,53 @@
+.home-container {
+    position: relative;
+}
+
+.main-container {
+    position: relative;
+}
+
+.hero-video {
+    height: 80vh;
+    object-fit: cover;
+}
+
+.hero-text {
+    position: absolute;
+    top: 1rem;
+    color: rgb(26, 141, 154);
+    z-index: 1;
+}
+
+nav {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1;
+    color: rgb(26, 141, 154);
+    font-size: 1.2em;
+    font-weight: 500;
+
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+
+}
+
+nav li {
+    margin-right: 2em;
+
+}
+
+nav a {
+    text-decoration: none;
+    color: rgb(26, 141, 154);
+    ;
+
+}
+
+.om-text {
+    color: var(--main-text-color);
+}

@@ -6,6 +6,7 @@ import BookingButton from "../components/BookingButton";
 import { useCartContext } from "../context/CartContext";
 import { Card, Image } from "antd";
 import "../styling/Facilities.css";
+import tossenImage from "../assets/images/tossen.jpg";
 const { Meta } = Card;
 
 function Facilities() {
@@ -14,7 +15,15 @@ function Facilities() {
 
   return (
     <div>
-      <h1>Lokaler</h1>
+      <div className="imageTitleContainer">
+        <img
+          src={tossenImage}
+          alt="Tossen Lokal"
+          style={{ objectFit: "cover", width: "100%", height: "50" }}
+        ></img>
+        <h1 className="page-title">Lokaler</h1>
+      </div>
+
       <div className="ProductListContainer">
         {facilities.map((facility) => (
           <Card

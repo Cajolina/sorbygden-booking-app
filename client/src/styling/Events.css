@@ -7,3 +7,12 @@
 .eventCard {
     margin: 2rem;
 }
+
+.page-title-green {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: rgb(67, 132, 119);
+    z-index: 1;
+    font-size: 50px;
+}
