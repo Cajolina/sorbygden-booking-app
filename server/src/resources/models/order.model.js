@@ -70,6 +70,16 @@ const OrderSchema = new Schema({
         type: String,
         default: new Date().toISOString().split("T")[0],
     },
+    customer: {
+        name: {
+            type: String,
+            required: true,
+        },
+        email: {
+            type: String,
+            required: true,
+        },
+    },
     orderNumber: {
         type: Number,
         required: true,
