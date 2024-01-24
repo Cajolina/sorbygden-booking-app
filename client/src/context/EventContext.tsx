@@ -52,7 +52,7 @@ const EventProvider = ({ children }: PropsWithChildren) => {
       console.log(error);
     }
   }
-  //Update event
+
   async function updateEvent(data: IEvent) {
     try {
       await fetch(`/api/events/${data._id}`, {
@@ -67,7 +67,6 @@ const EventProvider = ({ children }: PropsWithChildren) => {
       console.log(error);
     }
   }
-
   //Soft delete
   async function deleteEvent(data: IEvent) {
     data = { ...data, deleted: true };
