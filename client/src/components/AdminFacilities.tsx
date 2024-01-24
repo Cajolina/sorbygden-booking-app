@@ -4,7 +4,13 @@ import { useFacilityContext } from "../context/FacilityContext";
 import { useCategoryContext } from "../context/CategoryContext";
 import { useEffect, useState } from "react";
 
-import { DeleteOutlined, EditOutlined, CheckOutlined } from "@ant-design/icons";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  CheckOutlined,
+  PlusOutlined,
+  CloseOutlined,
+} from "@ant-design/icons";
 import { DataTypeFacility, IFacility } from "../Interfaces";
 import AdminCreateFacility from "./AdminCreateFacility";
 function AdminFacilities() {
@@ -29,18 +35,61 @@ function AdminFacilities() {
       title: "Images",
       dataIndex: "images",
       key: "images",
-      render: (images: string[]) => (
-        <div>
-          {images.map((image, index) => (
-            <img
-              key={index}
-              src={image}
-              alt={`Image ${index + 1}`}
-              style={{ width: "50px", height: "50px" }}
-            />
-          ))}
-        </div>
-      ),
+      render: (images: string[], record: DataTypeFacility) => {
+        if (edit === record.key) {
+          // In edit mode, display the form for adding or removing images
+          return (
+            <Form.List name="images">
+              {(fields, { add, remove }) => (
+                <>
+                  {fields.map(({ name, key, ...restField }) => (
+                    <div key={key} style={{ display: "flex", marginBottom: 8 }}>
+                      <Button
+                        type="text"
+                        onClick={() => remove(name)}
+                        icon={<CloseOutlined />}
+                        style={{ marginRight: 8, color: "red" }}
+                      ></Button>
+                      <Form.Item
+                        {...restField}
+                        name={name}
+                        key={key}
+                        rules={[
+                          { required: true, message: "Insert URL" },
+                          { type: "string", message: "Insert URL" },
+                        ]}
+                      >
+                        <Input placeholder="Image URL" />
+                      </Form.Item>
+                    </div>
+                  ))}
+                  <Button
+                    type="dashed"
+                    onClick={() => add()}
+                    icon={<PlusOutlined />}
+                  >
+                    Add Image
+                  </Button>
+                </>
+              )}
+            </Form.List>
+          );
+        } else {
+          // Display images if not in edit mode
+          return (
+            <div>
+              {images.map((image, index) => (
+                <img
+                  key={index}
+                  src={image}
+                  alt={`Image ${index + 1}`}
+                  style={{ width: "50px", height: "50px" }}
+                />
+              ))}
+            </div>
+          );
+        }
+      },
     },
     // Title column with rendering logic for editing title in form
     {
@@ -165,6 +214,7 @@ function AdminFacilities() {
       render: (text: string, record: DataTypeFacility) => (
         <>
           {edit === record.key ? (
+            //In editing mode, the form for adding images is displayed.
             <Form.Item name="type">
               <Select placeholder="Select type">
                 {["event", "facility"].map((type) => (
@@ -204,9 +254,9 @@ function AdminFacilities() {
                 title: record.title,
                 description: record.description,
                 price: record.price,
-
                 categories: record.categories,
                 type: record.type,
+                images: record.images,
               });
             }}
           />
