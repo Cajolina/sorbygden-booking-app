@@ -127,6 +127,7 @@ async function createCheckoutSession(req, res) {
                 },
                 quantity: item.quantity,
             })),
+            customer: req.session.id,
             success_url: `${CLIENT_URL}/confirmation`,
             cancel_url: currentUrl,
             metadata: {
@@ -158,6 +159,10 @@ async function verifySession(req, res) {
 
         const order = new OrderModel({
             created: new Date(session.created * 1000).toISOString().split("T")[0],
+            customer: {
+                name: session.customer_details.name,
+                email: session.customer_details.email,
+            },
             orderNumber: Math.floor(Math.random() * 1000000),
             orderItems: JSON.parse(productItem).map((item, index) => ({
                 product: item.product,

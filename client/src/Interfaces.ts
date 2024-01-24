@@ -124,6 +124,11 @@ export interface loginContext {
   logoutAdmin: () => void;
 }
 
+//CUSTOMER
+export interface ICustomer {
+  name: string;
+  email: string;
+}
 //ORDER
 
 export interface IorderItemInfo {
@@ -142,6 +147,7 @@ export interface IOrderInfo {
   orderNumber: number;
   totalOrderAmount: number;
   _id: string;
+  customer: ICustomer;
 }
 
 export interface IOrderDetails {
