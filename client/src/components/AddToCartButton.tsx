@@ -35,6 +35,14 @@ function AddToCartButton({ product }: Props) {
       >
         Köp
       </Button>
+      {/* Display an error message if the event is sold out (either in the cart or out of stock) */}
+      {(cartItem?.quantity || 0) >= (product as IEvent).inStock && (
+        <p className="error-message">Eventet är slutsålt!</p>
+      )}
+      {/* Display an error message if the facility is currently unavailable */}
+      {(product as IFacility).availability === false && (
+        <p className="error-message">Lokalen är inte tillgänglig just nu.</p>
+      )}
     </div>
   );
 }
