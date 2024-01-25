@@ -1,15 +1,15 @@
-import { Button, Form, Input, InputNumber, Modal, Select } from "antd";
+import { Button, Form, Input, InputNumber, Modal, Select, Space } from "antd";
 import { useEventContext } from "../context/EventContext";
 import { useEffect, useState } from "react";
 import { useCategoryContext } from "../context/CategoryContext";
-import { PlusOutlined } from "@ant-design/icons";
+import { PlusOutlined, CloseOutlined } from "@ant-design/icons";
 
 function AdminCreateEvent() {
   const { createEvent } = useEventContext();
   const { fetchCategories, categories } = useCategoryContext();
   const [form] = Form.useForm();
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [error, setError] = useState("");
   useEffect(() => {
     const fetchData = async () => {
       //Fetch categories only if they haven't already been fetched.
@@ -26,6 +26,12 @@ function AdminCreateEvent() {
       await form.validateFields();
       const fieldsValue = await form.getFieldsValue();
 
+      // Validate if there is at least one image
+      if (!fieldsValue.images || fieldsValue.images.length === 0) {
+        setError("Lägg till åtminstone en bild");
+        throw new Error("Add at least one image");
+      }
+
       const event = {
         title: fieldsValue.title,
         description: fieldsValue.description,
@@ -35,10 +41,12 @@ function AdminCreateEvent() {
         type: fieldsValue.type,
         images: fieldsValue.images,
       };
+      console.log("i sumbmit form event", event);
 
       createEvent(event);
       setIsModalOpen(false);
       form.resetFields();
+      setError("");
     } catch (error) {
       console.log(error);
     }
@@ -55,6 +63,7 @@ function AdminCreateEvent() {
   const handleCancel = () => {
     setIsModalOpen(false);
     form.resetFields();
+    setError("");
   };
   return (
     <div>
@@ -79,31 +88,41 @@ function AdminCreateEvent() {
           <Form.Item
             name="title"
             label="Eventnamn"
-            rules={[{ required: true }]}
+            rules={[{ required: true, message: "Du måste ange ett namn" }]}
           >
             <Input placeholder="Eventnamn" />
           </Form.Item>
           <Form.Item
             name="description"
             label="Beskrivning"
-            rules={[{ required: true }]}
+            rules={[
+              { required: true, message: "Du måste ange en beskrivning" },
+            ]}
           >
             <Input placeholder="Beskrivning" />
           </Form.Item>
-          <Form.Item name="price" label="Pris" rules={[{ required: true }]}>
+          <Form.Item
+            name="price"
+            label="Pris"
+            rules={[{ required: true, message: "Du måste ange ett pris" }]}
+          >
             <InputNumber placeholder="Pris" />
           </Form.Item>
           <Form.Item
             name="inStock"
             label="I lager"
-            rules={[{ required: true }]}
+            rules={[
+              { required: true, message: "Du måste lägga till antal i lager" },
+            ]}
           >
             <InputNumber placeholder="I lager" />
           </Form.Item>
           <Form.Item
             name="categories"
             label="Kategori"
-            rules={[{ required: true }]}
+            rules={[
+              { required: true, message: "Du måste välja minst 1 kategori" },
+            ]}
           >
             <Select mode="multiple" placeholder="Select categories">
               {categories.map((category) => (
@@ -113,7 +132,11 @@ function AdminCreateEvent() {
               ))}
             </Select>
           </Form.Item>
-          <Form.Item name="type" label="Typ" rules={[{ required: true }]}>
+          <Form.Item
+            name="type"
+            label="Typ"
+            rules={[{ required: true, message: "Du måste ange typ" }]}
+          >
             <Select placeholder="Select type">
               {["event", "facility"].map((type) => (
                 <Select.Option key={type} value={type}>
@@ -122,13 +145,49 @@ function AdminCreateEvent() {
               ))}
             </Select>
           </Form.Item>
-          <Form.Item
-            name="images"
-            label="Eventbilder"
-            rules={[{ required: true }]}
-          >
-            <Input placeholder="ladda upp" />
-          </Form.Item>
+
+          <Form.List name="images">
+            {(fields, { add, remove }) => (
+              <>
+                {fields.map(({ key, name, ...restField }) => (
+                  <Space
+                    key={key}
+                    style={{ display: "flex", marginBottom: 8 }}
+                    align="baseline"
+                  >
+                    <Form.Item
+                      {...restField}
+                      name={name}
+                      key={key}
+                      rules={[
+                        {
+                          required: true,
+                          message: "Du måste lägga till minst 1 bild",
+                        },
+                        {
+                          type: "string",
+                          message: "Du måste lägga till minst 1 bild",
+                        },
+                      ]}
+                    >
+                      <Input placeholder="Image URL" />
+                    </Form.Item>
+                    <CloseOutlined onClick={() => remove(name)} />
+                  </Space>
+                ))}
+                <Form.Item>
+                  <Button
+                    type="dashed"
+                    onClick={() => add()}
+                    icon={<PlusOutlined />}
+                  >
+                    Add Image
+                  </Button>
+                </Form.Item>
+              </>
+            )}
+          </Form.List>
+          {error && <p style={{ color: "red" }}>{error}</p>}
         </Form>
       </Modal>
     </div>
