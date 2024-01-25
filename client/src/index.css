@@ -3,7 +3,7 @@
 :root {
     --main-text-color: rgb(26, 141, 154);
     --main-background-color: rgb(26, 141, 154);
-
+    --error-message-color: #ff0000;
 }
 
 * {
@@ -21,4 +21,8 @@ a {
 .ant-btn-primary {
     background: rgb(26, 141, 154) !important;
     ;
+}
+
+.error-message {
+    color: var(--error-message-color);
 }

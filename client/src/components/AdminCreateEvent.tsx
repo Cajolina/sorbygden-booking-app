@@ -187,7 +187,7 @@ function AdminCreateEvent() {
               </>
             )}
           </Form.List>
-          {error && <p style={{ color: "red" }}>{error}</p>}
+          {error && <p className="error-message">{error}</p>}
         </Form>
       </Modal>
     </div>
