@@ -8,6 +8,7 @@ import {
   IorderItemInfo,
 } from "../Interfaces";
 import { useCartContext } from "./CartContext";
+import { useEventContext } from "./EventContext";
 
 const StripeCheckoutContext = createContext<IStripeCheckoutContext>({
   handleCheckout: () => {},
@@ -20,6 +21,7 @@ export const useStripeCheckoutContext = () => useContext(StripeCheckoutContext);
 
 const StripeCheckoutProvider = ({ children }: PropsWithChildren<object>) => {
   const { cart, clearCart } = useCartContext();
+  const { fetchEvents } = useEventContext();
   const [isVerified, setIsVerified] = useState(false);
   const handleCheckout = async () => {
     try {
@@ -66,6 +68,7 @@ const StripeCheckoutProvider = ({ children }: PropsWithChildren<object>) => {
         console.log("is verified");
         setIsVerified(true);
         localStorage.removeItem("session-id");
+        fetchEvents();
       } else {
         console.log("is NOT verified");
         setIsVerified(false);
@@ -75,43 +78,6 @@ const StripeCheckoutProvider = ({ children }: PropsWithChildren<object>) => {
     }
   };
 
-  // async function getOrders() {
-  //   try {
-  //     const response = await fetch("/api/orders");
-  //     const orders = await response.json();
-
-  //     const ordersWithProductInfo = [];
-
-  //     for (const order of orders) {
-  //       const orderDetails: IOrderDetails = {
-  //         orderInfo: order,
-  //         productDetails: [],
-  //       };
-
-  //       for (const orderItem of order.orderItems) {
-  //         const productId = orderItem.product;
-
-  //         const productInfoResponse = await fetch(`/api/events/${productId}`);
-  //         const productInfo = await productInfoResponse.json();
-
-  //         const orderItemDetails = {
-  //           productInfo: productInfo as IEvent | IFacility,
-  //           orderItemInfo: orderItem as IorderItemInfo,
-  //         } as IOrderItemDetails;
-
-  //         orderDetails.productDetails.push(orderItemDetails);
-  //       }
-
-  //       ordersWithProductInfo.push(orderDetails);
-  //     }
-
-  //     console.log(ordersWithProductInfo);
-  //     return ordersWithProductInfo;
-  //   } catch (error) {
-  //     console.log(error);
-  //     throw error;
-  //   }
-  // }
   async function getOrders() {
     try {
       const response = await fetch("/api/orders");
