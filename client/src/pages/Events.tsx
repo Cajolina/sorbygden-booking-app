@@ -5,7 +5,8 @@ import CartDisplay from "../components/CartDisplay";
 import "../styling/Events.css";
 import { Card, Image } from "antd";
 import { useCartContext } from "../context/CartContext";
-import eventImage from "../assets/images/event-image.jpg";
+// import eventImage from "../assets/images/event-image-5.jpg";
+import eventImage from "../assets/images/event-image-kopia2.png";
 const { Meta } = Card;
 
 function Events() {
