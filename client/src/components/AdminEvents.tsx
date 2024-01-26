@@ -16,7 +16,11 @@ import AdminCreateEvent from "./AdminCreateEvent";
 function AdminEvents() {
   const { fetchCategories, categories } = useCategoryContext();
   const { events, updateEvent, deleteEvent } = useEventContext();
+  const [error, setError] = useState("");
   const [form] = Form.useForm();
+
+  const typeOf = ["event", "facility"];
+
   // State to track the event being edited
   const [edit, setEdit] = useState<string | null>(null);
   useEffect(() => {
@@ -26,7 +30,23 @@ function AdminEvents() {
 
     fetchData();
   }, [fetchCategories]);
+  // Handle saving changes when the form is submitted
+  const handleEditSave = async (values: any) => {
+    form.validateFields();
+    const fieldsValue = await form.getFieldsValue();
 
+    // Validate if there is at least one image
+    if (!fieldsValue.images || fieldsValue.images.length === 0) {
+      setError("Lägg till åtminstone en bild");
+      throw new Error("Add at least one image");
+    }
+    // Create a new object with updated values and send it for update
+    const newEventValues = { _id: edit, deleted: false, ...values };
+    updateEvent(newEventValues);
+    // Exit edit mode
+    setEdit(null);
+    setError("");
+  };
   // Define the columns for the table
   const columns: TableColumnProps<DataTypeEvent>[] = [
     // Images column with rendering logic for displaying images
@@ -41,6 +61,7 @@ function AdminEvents() {
             <Form.List name="images">
               {(fields, { add, remove }) => (
                 <>
+                  {error && <p className="error-message">{error}</p>}
                   {fields.map(({ name, key, ...restField }) => (
                     <div key={key} style={{ display: "flex", marginBottom: 8 }}>
                       <Button
@@ -54,8 +75,14 @@ function AdminEvents() {
                         name={name}
                         key={key}
                         rules={[
-                          { required: true, message: "Insert URL" },
-                          { type: "string", message: "Insert URL" },
+                          {
+                            required: true,
+                            message: "Lägg till åtminstone en bild",
+                          },
+                          {
+                            type: "string",
+                            message: "Lägg till åtminstone en bild",
+                          },
                         ]}
                       >
                         <Input placeholder="Image URL" />
@@ -101,12 +128,12 @@ function AdminEvents() {
             <Form.Item
               name="title"
               rules={[
-                { required: true, message: "Enter a title" },
-                { type: "string", message: "Enter a title" },
+                { required: true, message: "Du måste ange ett namn" },
+                { type: "string", message: "Du måste ange ett namn" },
                 {
                   type: "string",
                   min: 3,
-                  message: "At least 3 characters required",
+                  message: "Minst 3 tecken krävs",
                 },
               ]}
             >
@@ -199,7 +226,12 @@ function AdminEvents() {
       render: (text: string[], record: DataTypeEvent) => (
         <>
           {edit === record.key ? (
-            <Form.Item name="categories">
+            <Form.Item
+              name="categories"
+              rules={[
+                { required: true, message: "Du måste välja en kategori" },
+              ]}
+            >
               <Select mode="multiple" placeholder="Select categories">
                 {categories.map((category) => (
                   <Select.Option key={category._id} value={category._id}>
@@ -228,9 +260,12 @@ function AdminEvents() {
       render: (text: string, record: DataTypeEvent) => (
         <>
           {edit === record.key ? (
-            <Form.Item name="type">
+            <Form.Item
+              name="type"
+              rules={[{ required: true, message: "Du måste välja en typ" }]}
+            >
               <Select placeholder="Select type">
-                {["event", "facility"].map((type) => (
+                {typeOf.map((type) => (
                   <Select.Option key={type} value={type}>
                     {type}
                   </Select.Option>
@@ -278,14 +313,7 @@ function AdminEvents() {
       ),
     },
   ];
-  // Handle saving changes when the form is submitted
-  const handleEditSave = (values: any) => {
-    // Create a new object with updated values and send it for update
-    const newEventValues = { _id: edit, deleted: false, ...values };
-    updateEvent(newEventValues);
-    // Exit edit mode
-    setEdit(null);
-  };
+
   // Render the main component
   return (
     <div>
