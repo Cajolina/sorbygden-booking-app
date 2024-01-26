@@ -19,6 +19,8 @@ function AdminFacilities() {
   const [form] = Form.useForm();
   // State to track the facility being edited
   const [edit, setEdit] = useState<string | null>(null);
+  const [error, setError] = useState("");
+  const typeOf = ["event", "facility"];
   // Fetch categories on component mount
   useEffect(() => {
     const fetchData = async () => {
@@ -27,7 +29,23 @@ function AdminFacilities() {
 
     fetchData();
   }, [fetchCategories]);
+  // Handle saving changes when the form is submitted
+  const handleEditSave = async (values: any) => {
+    form.validateFields();
+    const fieldsValue = await form.getFieldsValue();
 
+    // Validate if there is at least one image
+    if (!fieldsValue.images || fieldsValue.images.length === 0) {
+      setError("Lägg till åtminstone en bild");
+      throw new Error("Add at least one image");
+    }
+    // Create a new object with updated values and send it for update
+    const newValuesFacility = { _id: edit, deleted: false, ...values };
+    updateFacility(newValuesFacility);
+    // Exit edit mode
+    setEdit(null);
+    setError("");
+  };
   // Define the columns for the table
   const columns: TableColumnProps<DataTypeFacility>[] = [
     // Images column with rendering logic for displaying images
@@ -42,6 +60,7 @@ function AdminFacilities() {
             <Form.List name="images">
               {(fields, { add, remove }) => (
                 <>
+                  {error && <p className="error-message">{error}</p>}
                   {fields.map(({ name, key, ...restField }) => (
                     <div key={key} style={{ display: "flex", marginBottom: 8 }}>
                       <Button
@@ -55,8 +74,14 @@ function AdminFacilities() {
                         name={name}
                         key={key}
                         rules={[
-                          { required: true, message: "Insert URL" },
-                          { type: "string", message: "Insert URL" },
+                          {
+                            required: true,
+                            message: "Lägg till åtminstone en bild",
+                          },
+                          {
+                            type: "string",
+                            message: "Lägg till åtminstone en bild",
+                          },
                         ]}
                       >
                         <Input placeholder="Image URL" />
@@ -102,12 +127,12 @@ function AdminFacilities() {
             <Form.Item
               name="title"
               rules={[
-                { required: true, message: "Enter a title" },
-                { type: "string", message: "Enter a title" },
+                { required: true, message: "Du måste ange ett namn" },
+                { type: "string", message: "Du måste ange ett namn" },
                 {
                   type: "string",
                   min: 3,
-                  message: "At least 3 characters required",
+                  message: "Minst 3 tecken krävs",
                 },
               ]}
             >
@@ -185,7 +210,12 @@ function AdminFacilities() {
       render: (text: string[], record: DataTypeFacility) => (
         <>
           {edit === record.key ? (
-            <Form.Item name="categories">
+            <Form.Item
+              name="categories"
+              rules={[
+                { required: true, message: "Du måste välja en kategori" },
+              ]}
+            >
               <Select mode="multiple" placeholder="Select categories">
                 {categories.map((category) => (
                   <Select.Option key={category._id} value={category._id}>
@@ -215,9 +245,12 @@ function AdminFacilities() {
         <>
           {edit === record.key ? (
             //In editing mode, the form for adding images is displayed.
-            <Form.Item name="type">
+            <Form.Item
+              name="type"
+              rules={[{ required: true, message: "Du måste välja en typ" }]}
+            >
               <Select placeholder="Select type">
-                {["event", "facility"].map((type) => (
+                {typeOf.map((type) => (
                   <Select.Option key={type} value={type}>
                     {type}
                   </Select.Option>
@@ -264,14 +297,7 @@ function AdminFacilities() {
       ),
     },
   ];
-  // Handle saving changes when the form is submitted
-  const handleEditSave = (values: any) => {
-    // Create a new object with updated values and send it for update
-    const newValuesFacility = { _id: edit, deleted: false, ...values };
-    updateFacility(newValuesFacility);
-    // Exit edit mode
-    setEdit(null);
-  };
+
   // Render the main component
   return (
     <div>
