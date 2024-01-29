@@ -67,7 +67,7 @@ function Facilities() {
             <Link to={`/lokaler/${facility._id}`}>
               <p>Läs mer här</p>
             </Link>
-            <h3>Välj datum:</h3>
+
             {/* Pass date selection function to SelectedDateButton */}
             <SelectedDateButton
               onDateSelect={(startDate, endDate) =>
