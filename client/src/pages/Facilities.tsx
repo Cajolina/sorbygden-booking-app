@@ -2,17 +2,28 @@ import { Link } from "react-router-dom";
 import { useFacilityContext } from "../context/FacilityContext";
 import AddToCartButton from "../components/AddToCartButton";
 import CartDisplay from "../components/CartDisplay";
-import BookingButton from "../components/BookingButton";
+import SelectDateButton from "../components/SelectDateButton";
 import { useCartContext } from "../context/CartContext";
 import { Card, Image } from "antd";
 import "../styling/Facilities.css";
 import tossenImage from "../assets/images/tossen.jpg";
+import FacilityDatePicker from "../components/FacilityDatePicker";
+
+import { useState } from "react";
 const { Meta } = Card;
 
 function Facilities() {
   const { facilities } = useFacilityContext();
   const { cart } = useCartContext();
+  const [selectedStartDate, setSelectedStartDate] = useState<string | null>(
+    null
+  );
+  const [selectedEndDate, setSelectedEndDate] = useState<string | null>(null);
 
+  const handleDateSelect = (startDate: string, endDate: string) => {
+    setSelectedStartDate(startDate);
+    setSelectedEndDate(endDate);
+  };
   return (
     <div>
       <div className="imageTitleContainer">
@@ -38,8 +49,15 @@ function Facilities() {
             <Link to={`/lokaler/${facility._id}`}>
               <p>Läs mer här</p>
             </Link>
-            <AddToCartButton product={facility} />
-            <BookingButton />
+            <h3>Välj datum:</h3>
+            <FacilityDatePicker onDateSelect={handleDateSelect} />
+            <AddToCartButton
+              product={{
+                ...facility,
+                startDate: selectedStartDate,
+                endDate: selectedEndDate,
+              }}
+            />
           </Card>
         ))}
       </div>

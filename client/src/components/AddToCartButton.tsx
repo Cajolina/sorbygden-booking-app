@@ -1,9 +1,12 @@
 import { useCartContext } from "../context/CartContext";
 import { IEvent, IFacility } from "../Interfaces";
 import { Button } from "antd";
-
+interface ExtendedIFacility extends IFacility {
+  startDate?: string | null;
+  endDate?: string | null;
+}
 type Props = {
-  product: IEvent | IFacility;
+  product: IEvent | ExtendedIFacility;
 };
 
 function AddToCartButton({ product }: Props) {
@@ -22,7 +25,7 @@ function AddToCartButton({ product }: Props) {
     (product as IEvent).inStock === 0 ||
     (product as IFacility).availability === false ||
     (cartItem?.quantity || 0) >= (product as IEvent).inStock;
-
+  const buttonText = "inStock" in product ? "Köp" : "Boka";
   return (
     <div>
       <Button
@@ -33,7 +36,7 @@ function AddToCartButton({ product }: Props) {
         disabled={disableButtonCondition}
         type="primary"
       >
-        Köp
+        {buttonText}
       </Button>
       {/* Display an error message if the event is sold out (either in the cart or out of stock) */}
       {(cartItem?.quantity || 0) >= (product as IEvent).inStock && (

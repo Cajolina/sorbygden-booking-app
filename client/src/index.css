@@ -4,6 +4,7 @@
     --main-text-color: rgb(26, 141, 154);
     --main-background-color: rgb(26, 141, 154);
     --error-message-color: #ff0000;
+    --button-text-color: #fff;
 }
 
 * {
@@ -19,9 +20,11 @@ a {
 }
 
 .ant-btn-primary {
-    background: rgb(26, 141, 154) !important;
-    ;
+    background-color: var(--main-text-color);
+    color: var(--button-text-color);
 }
+
+
 
 .error-message {
     color: var(--error-message-color);
