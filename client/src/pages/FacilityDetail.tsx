@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { IFacility } from "../Interfaces";
 import { useParams } from "react-router-dom";
-import BookingButton from "../components/BookingButton";
+import BookingButton from "../components/SelectDateButton";
 import { useCartContext } from "../context/CartContext";
 import CartDisplay from "../components/CartDisplay";
 

@@ -30,9 +30,19 @@ function CartDisplay() {
           />
           <div>
             <h2>{cartItem.product.title}</h2>
-            <p>{cartItem.product.price}</p>
-            <p>{cartItem.quantity} st</p>
+            <p>{cartItem.product.price} kr</p>
+            <p>
+              {cartItem.quantity}{" "}
+              {cartItem.product.type === "event" ? "st" : "dagar"}
+            </p>
             <p>{cartItem.product.price * cartItem.quantity}</p>
+            {cartItem.product.type === "facility" && (
+              <>
+                <h4>Datum:</h4>
+                <p>Från: {cartItem.product.startDate}</p>
+                <p>Till: {cartItem.product.endDate}</p>
+              </>
+            )}
           </div>
 
           <Button

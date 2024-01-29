@@ -42,6 +42,11 @@ export interface IFacility {
   deleted?: boolean;
   type: "facility";
 }
+//Extended interface
+export interface IExtendedIFacility extends IFacility {
+  startDate?: string | null;
+  endDate?: string | null;
+}
 export interface ICreateFacility
   extends Omit<IFacility, "_id" | "deleted" | "availability"> {}
 export interface IFacilityContext {
@@ -78,7 +83,7 @@ export interface ICategories {
   description: string;
 }
 //Interfaces for cart
-export type IProduct = IEvent | IFacility;
+export type IProduct = IEvent | IExtendedIFacility;
 
 export interface ICartItem {
   product: IProduct;

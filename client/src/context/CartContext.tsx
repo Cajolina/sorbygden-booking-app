@@ -1,6 +1,7 @@
 import { createContext, useContext, PropsWithChildren } from "react";
 import { ICartItem, ICartContext, IProduct } from "../Interfaces";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import dayjs, { Dayjs } from "dayjs";
 
 const CartContext = createContext<ICartContext>({
   cart: [],
@@ -21,15 +22,56 @@ const CartProvider = ({ children }: PropsWithChildren<object>) => {
     setCart([]);
   };
 
+  // This function generates an array of date strings within a specified date range.
+  const generateDateRange = (
+    startDate: string | null,
+    endDate: string | null
+  ): string[] => {
+    // Initialize an empty array to store the generated date strings.
+    const dateRange = [];
+    // If startDate is not null, create a Dayjs object with the provided startDate,otherwise, create a Dayjs object for the current date.
+    let currentDate: Dayjs = dayjs(startDate);
+    // Iterate through the date range from startDate to endDate (inclusive).
+    // The loop continues as long as the currentDate is the same or before the endDate.
+    while (currentDate.isSameOrBefore(endDate, "day")) {
+      // Format the current date as a string in the "YYYY-MM-DD" format and add it to the dateRange array.
+      dateRange.push(currentDate.format("YYYY-MM-DD"));
+      // Move to the next day by adding 1 day to the currentDate.
+      currentDate = currentDate.add(1, "day");
+    }
+
+    return dateRange;
+  };
+
   const addToCart = (product: IProduct) => {
+    // Find an existing item in the cart based on the product ID.
     const existingItem = cart.find(
       (item: ICartItem) => item.product._id === product._id
     );
-    if (existingItem) {
-      existingItem.quantity++;
-      setCart([...cart]);
-    } else {
-      setCart([...cart, { product, quantity: 1 }]);
+    // Check if the product is of type "event".
+    if (product.type === "event") {
+      if (existingItem) {
+        // If the event already exists in the cart, increase its quantity by 1.
+        existingItem.quantity++;
+        setCart([...cart]);
+      } else {
+        // If the event is not in the cart, add it with a quantity of 1.
+        setCart([...cart, { product, quantity: 1 }]);
+      }
+    } else if (product.type === "facility") {
+      // For products of type "facility," handle the scenario differently.
+      const startDate = product.startDate ?? null;
+      const endDate = product.endDate ?? null;
+      // Generate a date range based on the facility's start and end dates.
+      const dateRange = generateDateRange(startDate, endDate);
+      if (existingItem) {
+        // If the facility already exists in the cart, update its quantity based on the date range.
+        existingItem.quantity += dateRange.length;
+        setCart([...cart]);
+      } else {
+        // If the facility is not in the cart, add it with a quantity based on the date range.
+        setCart([...cart, { product, quantity: dateRange.length }]);
+      }
     }
   };
 
