@@ -1,12 +1,9 @@
 import { useCartContext } from "../context/CartContext";
-import { IEvent, IFacility } from "../Interfaces";
+import { IEvent, IFacility, IExtendedIFacility } from "../Interfaces";
 import { Button } from "antd";
-interface ExtendedIFacility extends IFacility {
-  startDate?: string | null;
-  endDate?: string | null;
-}
+
 type Props = {
-  product: IEvent | ExtendedIFacility;
+  product: IEvent | IExtendedIFacility;
 };
 
 function AddToCartButton({ product }: Props) {
