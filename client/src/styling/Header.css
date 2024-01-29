@@ -1,0 +1,41 @@
+.hero-text {
+    position: absolute;
+    padding: 0.5rem;
+    color: rgb(26, 141, 154);
+    z-index: 1;
+}
+
+.home-header {
+    background-color: rgba(255, 255, 255, 0.551);
+    width: 100%;
+}
+
+nav {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1;
+    color: rgb(26, 141, 154);
+    font-size: 1.2em;
+    font-weight: 500;
+
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+
+}
+
+nav li {
+    margin-right: 2em;
+
+}
+
+nav a {
+    text-decoration: none;
+    color: rgb(26, 141, 154);
+    ;
+
+}

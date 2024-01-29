@@ -46,6 +46,7 @@ function CartDisplay() {
           </div>
 
           <Button
+            className="trashCanButton"
             onClick={(e) => {
               e.preventDefault();
               handleRemoveClick(cartItem.product._id);

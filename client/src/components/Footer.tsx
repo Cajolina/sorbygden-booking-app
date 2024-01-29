@@ -1,5 +1,10 @@
+import "../styling/Footer.css";
 function Footer() {
-  return <div>Footer</div>;
+  return (
+    <footer className="footer">
+      <p>Footer</p>
+    </footer>
+  );
 }
 
 export default Footer;

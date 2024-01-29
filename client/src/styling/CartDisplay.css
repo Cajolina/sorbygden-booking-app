@@ -11,3 +11,8 @@
     ;
     padding: 2rem;
 }
+
+.trashCanButton {
+    background: none;
+    border: none;
+}

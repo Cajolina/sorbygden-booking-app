@@ -18,8 +18,14 @@ function Home() {
         >
           <source src={heroVideo} type="video/mp4" />
         </video>
-        <div>
+        <div className="homeAbout">
           <h2 className="om-text">OM SÖRBYGDEN</h2>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magni
+            saepe repellat atque illo voluptatibus, consectetur minima, rerum
+            voluptatem sed tempora, quasi quibusdam! Quam cupiditate earum
+            soluta dignissimos dicta iusto aliquid!
+          </p>
         </div>
       </div>
     </div>
