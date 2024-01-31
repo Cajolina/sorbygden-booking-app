@@ -118,7 +118,6 @@ const StripeCheckoutProvider = ({ children }: PropsWithChildren<object>) => {
         ordersWithProductInfo.push(orderDetails);
       }
 
-      console.log(ordersWithProductInfo);
       return ordersWithProductInfo;
     } catch (error) {
       console.log(error);
