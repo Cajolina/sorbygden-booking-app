@@ -1,13 +1,3 @@
-.ProductListContainer {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 2rem;
-}
-
-.eventCard {
-    margin: 2rem;
-}
-
 .page-title-green {
     position: absolute;
     bottom: 10px;

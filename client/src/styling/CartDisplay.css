@@ -1,18 +1,119 @@
 .cart {
-
     display: flex;
+    justify-content: space-between;
+    background-color: #ffffff !important;
+    border-radius: 10px;
+    margin: 1rem;
+    min-height: 7rem;
+}
 
+
+
+.cart div {
+    padding: 0.5rem;
+}
+
+.cartTextColumn {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 2rem;
+    align-items: center;
+}
+
+.cart img {
+    margin-right: 1rem;
 }
 
 .cartContainer {
-    width: 400px;
-    background-color: #58af99;
+    min-width: 400px;
+    background-color: var(--main-background-color);
     border-radius: 10px;
-    ;
-    padding: 2rem;
+    box-shadow: 0px 0px 10px var(--main-background-color);
+
+    position: absolute;
+    top: calc(50vh + 4rem);
+    right: 0;
+    border: none;
+    transition: top 0.3s;
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
 }
 
-.trashCanButton {
+.fixed {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.cartTitle {
+    font-size: 2em;
+    padding-bottom: 0.5rem;
+}
+
+.trashCanButton,
+.cart {
     background: none;
     border: none;
+
+    align-items: center;
+}
+
+.eventQuantity {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.eventQuantity p {
+    padding: 0.2rem;
+}
+
+.eventQuantity .ant-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--main-background-color);
+}
+
+.dateInCartContainer {
+    margin-left: auto;
+
+}
+
+.plusIcon {
+    width: 16px;
+    height: 16px;
+}
+
+.minusIcon {
+    width: 16px;
+
+    height: 16px;
+
+}
+
+.eventQuantity .ant-btn:disabled {
+    background-color: rgb(173, 173, 173);
+
+
+}
+
+
+.toPaymentBtn {
+    background-color: white;
+    color: black !important;
+    border: none;
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+
+.toPaymentBtn:hover {
+    background-color: #cbcbcb;
+    color: black !important;
+
+}
+
+.totalSum {
+    padding-top: 2rem;
 }

@@ -1,35 +1,3 @@
-.ProductListContainer {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 2rem;
-}
-
-.facilityCard {
-    margin: 2rem;
-}
-
-.ProductListContainer {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 2rem;
-
-}
-
-.facilityCard {
-    margin: 2rem;
-}
-
-.imageTitleContainer {
-    position: relative;
-}
-
-.imageTitleContainer img {
-    object-fit: cover;
-    width: 100%;
-    height: 50vh
-}
-
-
 .page-title {
     position: absolute;
     bottom: 10px;
