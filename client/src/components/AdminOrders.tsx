@@ -1,8 +1,19 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useStripeCheckoutContext } from "../context/StripeCheckoutContext";
 import { IOrderDetails } from "../Interfaces";
-
-function AdminOrders() {
+import { Table, Space } from "antd";
+// Interface for product details
+interface IOrderProductDetails {
+  productInfo: {
+    title: string;
+    price: number;
+    type: string;
+  };
+  orderItemInfo: {
+    quantity: number;
+  };
+}
+const AdminOrders: React.FC = () => {
   const { getOrders } = useStripeCheckoutContext();
   const [orders, setOrders] = useState<IOrderDetails[]>([]);
 
@@ -19,34 +30,66 @@ function AdminOrders() {
     }
   };
 
+  const columns = [
+    {
+      title: "Ordernummer",
+      dataIndex: ["orderInfo", "orderNumber"],
+      key: "orderNumber",
+    },
+    {
+      title: "Order ID",
+      dataIndex: ["orderInfo", "_id"],
+      key: "orderId",
+    },
+    {
+      title: "Skapad",
+      dataIndex: ["orderInfo", "created"],
+      key: "created",
+    },
+    {
+      title: "Kund Namn",
+      dataIndex: ["orderInfo", "customer", "name"],
+      key: "customerName",
+    },
+    {
+      title: "Kund E-post",
+      dataIndex: ["orderInfo", "customer", "email"],
+      key: "customerEmail",
+    },
+    {
+      title: "Produkter",
+      dataIndex: "productDetails",
+      key: "productDetails",
+      render: (productDetails: IOrderProductDetails[]) => (
+        <Space
+          direction="vertical"
+          style={{ maxHeight: "150px", overflowY: "auto" }}
+        >
+          {productDetails.map((product, index) => (
+            <div key={index}>
+              <p>• Titel: {product.productInfo.title}</p>
+              <p>Styckpris: {product.productInfo.price}</p>
+              <p>Typ: {product.productInfo.type}</p>
+              <p>Antal: {product.orderItemInfo.quantity}</p>
+            </div>
+          ))}
+        </Space>
+      ),
+    },
+    {
+      title: "Totalsumma",
+      dataIndex: ["orderInfo", "totalOrderAmount"],
+      key: "totalOrderAmount",
+    },
+  ];
+
   return (
-    <div className="adminpanel-order-content">
-      {orders.map((order, index) => (
-        <ul key={index}>
-          <li>
-            <h2>Ordernummer: {order.orderInfo.orderNumber}</h2>
-            <p>Order ID: {order.orderInfo._id}</p>
-            <p>Skapad: {order.orderInfo.created}</p>
-            <h2>Kund:</h2>
-            <p>Namn: {order.orderInfo.customer.name}</p>
-            <p>E-post: {order.orderInfo.customer.email}</p>
-            <p>Totalsumma: {order.orderInfo.totalOrderAmount}</p>
-            <ul>
-              {order.productDetails.map((productItem, innerIndex) => (
-                <li key={innerIndex}>
-                  <h2>Produkt:</h2>
-                  <p>Titeln: {productItem.productInfo.title}</p>
-                  <p>Styckpris: {productItem.productInfo.price}</p>
-                  <p>Typ: {productItem.productInfo.type}</p>
-                  <p>Antal: {productItem.orderItemInfo.quantity}</p>
-                </li>
-              ))}
-            </ul>
-          </li>
-        </ul>
-      ))}
-    </div>
+    <Table
+      dataSource={orders}
+      columns={columns}
+      rowKey={(record) => record.orderInfo._id}
+    />
   );
-}
+};
 
 export default AdminOrders;
