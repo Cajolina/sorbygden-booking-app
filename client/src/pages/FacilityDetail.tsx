@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { IFacility } from "../Interfaces";
 import { useParams } from "react-router-dom";
-import BookingButton from "../components/SelectDateButton";
+
 import { useCartContext } from "../context/CartContext";
 import CartDisplay from "../components/CartDisplay";
 
@@ -24,31 +24,20 @@ function FacilityDetail() {
   }, [id]);
 
   return facility ? (
-    <div>
-      <ul>
-        <li>{facility._id}</li>
-        <li>{facility.title}</li>
-        <li>{facility.description}</li>
-        <li>{facility.price}</li>
-        <li>
-          <ul>
-            {facility.images.map((image, index) => (
-              <li key={index}>
-                <img src={image} alt={`Image ${index + 1}`} />
-              </li>
-            ))}
-          </ul>
-        </li>
-        <li>{facility.availability}</li>
-        <li>
-          <ul>
-            {facility.categories.map((category, index) => (
-              <li key={index}>{category}</li>
-            ))}
-          </ul>
-        </li>
-      </ul>
-      <BookingButton />
+    <div className="detailFacility">
+      <div>
+        <h2>{facility.title}</h2>
+        <p>{facility.description}</p>
+        <p>{facility.price}kr</p>
+        <div className="detailImages">
+          {facility.images.map((image, index) => (
+            <div key={index}>
+              <img src={image} alt={`Image ${index + 1}`} />
+            </div>
+          ))}
+        </div>
+      </div>
+
       {cart.length > 0 ? <CartDisplay /> : null}
     </div>
   ) : null;

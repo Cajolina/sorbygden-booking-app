@@ -34,9 +34,9 @@ function EventDetail() {
           <img src={event.images[0]} alt="image" />
         </li>
         <li>{event.description}</li>
-        <li>{event.price}</li>
+        <li>Pris: {event.price}kr</li>
 
-        <li>{event.inStock}</li>
+        <li>I lager: {event.inStock}st </li>
         {/* <li>
           <ul>
             {event.categories.map((category, index) => (
