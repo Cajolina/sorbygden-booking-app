@@ -3,6 +3,7 @@ import { useEventContext } from "../context/EventContext";
 import AddToCartButton from "../components/AddToCartButton";
 import CartDisplay from "../components/CartDisplay";
 import "../styling/Events.css";
+import "../styling/SharedProductStyles.css";
 import { Card, Image } from "antd";
 import { useCartContext } from "../context/CartContext";
 // import eventImage from "../assets/images/event-image-5.jpg";
@@ -11,7 +12,7 @@ const { Meta } = Card;
 
 function Events() {
   const { events } = useEventContext();
-  const { cart } = useCartContext();
+  const { cart, cartVisible } = useCartContext();
   return (
     <div>
       <div className="imageTitleContainer">
@@ -23,11 +24,13 @@ function Events() {
         <h1 className="page-title-green">Evenemang</h1>
       </div>
 
-      <div>
-        <div className="ProductListContainer">
+      <div className="productContainer">
+        <div
+          className={`ProductListContainer ${cartVisible ? "withCart" : ""}`}
+        >
           {events.map((event) => (
             <Card
-              className="eventCard"
+              className="productCard"
               key={event._id}
               hoverable
               style={{ width: 400, marginBottom: "20px" }}
@@ -41,9 +44,9 @@ function Events() {
               </Link>
               <AddToCartButton product={event} />
             </Card>
-          ))}
+          ))}{" "}
+          {cart.length > 0 ? <CartDisplay /> : null}
         </div>
-        {cart.length > 0 ? <CartDisplay /> : null}
       </div>
     </div>
   );

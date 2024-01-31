@@ -1,0 +1,31 @@
+.imageTitleContainer {
+    position: relative;
+}
+
+.imageTitleContainer img {
+    object-fit: cover;
+    width: 100%;
+    height: 50vh
+}
+
+.productContainer {
+    display: flex;
+
+}
+
+.ProductListContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 2rem;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+
+.ProductListContainer.withCart {
+    margin-right: 420px;
+}
+
+.productCard {
+    margin: 2rem;
+}

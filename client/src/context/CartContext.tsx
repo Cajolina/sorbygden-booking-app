@@ -1,4 +1,10 @@
-import { createContext, useContext, PropsWithChildren } from "react";
+import {
+  createContext,
+  useContext,
+  PropsWithChildren,
+  useState,
+  useEffect,
+} from "react";
 import { ICartItem, ICartContext, IProduct } from "../Interfaces";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import dayjs, { Dayjs } from "dayjs";
@@ -11,16 +17,22 @@ const CartContext = createContext<ICartContext>({
   decreaseCartQuantity: () => {},
   totalSum: 0,
   clearCart: () => {},
+  cartVisible: false,
+  setCartVisible: () => {},
 });
 
 export const useCartContext = () => useContext(CartContext);
 
 const CartProvider = ({ children }: PropsWithChildren<object>) => {
   const [cart, setCart] = useLocalStorage("cart", []);
-
+  const [cartVisible, setCartVisible] = useState(false);
   const clearCart = () => {
     setCart([]);
   };
+
+  useEffect(() => {
+    setCartVisible(cart.length > 0);
+  }, [cart]);
 
   // This function generates an array of date strings within a specified date range.
   const generateDateRange = (
@@ -125,6 +137,8 @@ const CartProvider = ({ children }: PropsWithChildren<object>) => {
           decreaseCartQuantity,
           totalSum,
           clearCart,
+          cartVisible,
+          setCartVisible,
         }}
       >
         {children}

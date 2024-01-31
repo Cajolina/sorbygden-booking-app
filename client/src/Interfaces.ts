@@ -99,6 +99,8 @@ export interface ICartContext {
   decreaseCartQuantity: (product: IProduct) => void;
   totalSum: number;
   clearCart: () => void;
+  cartVisible: boolean;
+  setCartVisible: (visible: boolean) => void;
 }
 
 //Stripe checkout interface
