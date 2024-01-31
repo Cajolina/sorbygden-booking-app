@@ -1,13 +1,53 @@
-.footer {
-    background-color: var(--main-text-color);
+.footerContainer {
     height: 20vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    justify-content: space-around;
+    padding: 4rem 0rem;
+    color: #fff;
+}
+
+footer {
+    background-color: var(--main-text-color);
+}
+
+
+.footerSocialmedia {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.footerSocialmedia a {
+    text-decoration: none;
+    color: #fff;
 
 }
 
-.footer p {
-    font-size: 2rem;
+.footerInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.footerInfo a {
+    text-decoration: none;
     color: #fff;
+
+}
+
+.linkToLogin {
+    color: rgb(23, 107, 117);
+    display: flex;
+    padding-right: 1rem;
+    padding-bottom: 0.5rem;
+    justify-content: flex-end;
+
+}
+
+.linkToLogin .anticon {
+    font-size: 20px;
+
 }
