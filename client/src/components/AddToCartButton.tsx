@@ -8,11 +8,6 @@ type Props = {
 
 function AddToCartButton({ product }: Props) {
   const { addToCart, cart } = useCartContext();
-  //calculate the total quantity of items in the shopping cart by summing up the quantity of each item
-  // const totalQuantityInCart = cart.reduce(
-  //   (total, item) => total + item.quantity,
-  //   0
-  // );
 
   // Find the cart item for the current product
   const cartItem = cart.find((item) => item.product._id === product._id);
@@ -22,6 +17,8 @@ function AddToCartButton({ product }: Props) {
     (product as IEvent).inStock === 0 ||
     (product as IFacility).availability === false ||
     (cartItem?.quantity || 0) >= (product as IEvent).inStock;
+
+  // Determine the button text based on the type of product
   const buttonText = "inStock" in product ? "Köp" : "Boka";
   return (
     <div>

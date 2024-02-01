@@ -24,9 +24,6 @@ const FacilityDatePicker: React.FC<{
       return;
     }
 
-    console.log("Selected Time: ", values);
-    console.log("Formatted Selected Time: ", dateStrings);
-
     // Send values to the function in Facilities component
     onDateSelect(dateStrings[0], dateStrings[1]);
 
@@ -41,8 +38,6 @@ const FacilityDatePicker: React.FC<{
         dateRange.push(currentDate.format("YYYY-MM-DD"));
         currentDate = currentDate.add(1, "day");
       }
-
-      console.log("Date Range: ", dateRange);
     }
   };
 

@@ -20,23 +20,28 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 function App() {
+  // Get the current location using the useLocation hook from React Router
   const location = useLocation();
+  // Define an array of paths where Header and Footer should not be rendered
   const pagesWithoutHeaderFooter = ["/login", "/adminpanel"];
-
+  // Check if Header and Footer should be rendered based on the current path
   const shouldRenderHeaderFooter = !pagesWithoutHeaderFooter.includes(
     location.pathname
   );
   return (
     <div>
+      {/* Wrapping the entire application with different context providers */}
       <CategoryProvider>
         <FacilityProvider>
           <EventProvider>
             <CartProvider>
               <StripeCheckoutProvider>
                 <LoginProvider>
+                  {/* Conditional rendering of Header based on the current path */}
                   {shouldRenderHeaderFooter && <Header />}
                   <main>
                     <Routes>
+                      {/* Define routes for different pages in the application */}
                       <Route path="/" element={<Home />} />
                       <Route path="/lokaler" element={<Facilities />} />
                       <Route path="/evenemang" element={<Events />} />
@@ -54,6 +59,7 @@ function App() {
                       <Route path="/kalender" element={<CalendarPage />} />
                     </Routes>
                   </main>
+                  {/* Conditional rendering of Footer based on the current path */}
                   {shouldRenderHeaderFooter && <Footer />}
                 </LoginProvider>
               </StripeCheckoutProvider>

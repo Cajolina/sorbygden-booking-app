@@ -8,15 +8,16 @@ const { EventModel } = require('../models/event.model');
 
 async function createCheckoutSession(req, res) {
     try {
+        // Retrieve the current URL from the request headers
         const currentUrl = req.headers.referer;
-
+        // Extract product information from the request body
         const productArray = req.body.map((item) => ({
             product: item.product._id,
             quantity: item.quantity,
             productType: item.product.type,
         }));
 
-
+        // Create a checkout session using the Stripe API
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             mode: 'payment',
@@ -30,38 +31,39 @@ async function createCheckoutSession(req, res) {
                 },
                 quantity: item.quantity,
             })),
-            customer: req.session.id,
-            success_url: `${CLIENT_URL}/confirmation`,
+            customer: req.session.id, // Associate the session with the customer's session ID
+            success_url: `${CLIENT_URL}/confirmation`,// Redirect URL after successful payment
             cancel_url: currentUrl,
             metadata: {
-                product: JSON.stringify(productArray),
+                product: JSON.stringify(productArray),// Store additional metadata, such as product information
 
             },
         });
-
+        // Respond with the session URL and ID
         res.status(200).json({ url: session.url, sessionId: session.id });
     } catch (error) {
         console.log(error.message);
         res.status(400).json("Could not create checkout session.");
     }
 }
+// Function to verify a checkout session and handle the order
 async function verifySession(req, res) {
     try {
+        // Extract relevant data from the request body
         const { sessionId, orderItems } = req.body;
-        console.log('Received sessionId:', sessionId);
 
+        // Retrieve the Stripe checkout session
         const session = await stripe.checkout.sessions.retrieve(sessionId);
         if (session.payment_status !== "paid") {
             return res.status(400).json({ verified: false });
         }
-
+        // Retrieve line items from the checkout session
         const lineItems = await stripe.checkout.sessions.listLineItems(sessionId);
-
+        // Retrieve product information from session metadata
         const productItem = session.metadata.product;
 
-        // Update event stock status
+        // Update event stock status based on ordered quantities
         const parsedProductItems = JSON.parse(productItem);
-
         for (const parsedProductItem of parsedProductItems) {
             if (parsedProductItem.productType === "event") {
                 const event = await EventModel.findById(parsedProductItem.product);
@@ -75,7 +77,7 @@ async function verifySession(req, res) {
                 }
             }
         }
-
+        // Create a new order in the database and send the credentials for the order
         const order = new OrderModel({
             created: new Date(session.created * 1000).toISOString().split("T")[0],
             customer: {
@@ -103,7 +105,7 @@ async function verifySession(req, res) {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 }
-
+// Function to retrieve all orders from the database
 async function getOrders(req, res) {
     try {
         const orders = await OrderModel.find()

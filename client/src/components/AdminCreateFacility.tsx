@@ -9,6 +9,8 @@ function AdminCreateFacility() {
   const [form] = Form.useForm();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState("");
+
+  // Fetch categories on component mount
   useEffect(() => {
     const fetchData = async () => {
       //Fetch categories only if they haven't already been fetched.
@@ -20,6 +22,7 @@ function AdminCreateFacility() {
     fetchData();
   }, [fetchCategories, categories]);
 
+  // Function to submit the form
   const submitForm = async () => {
     try {
       await form.validateFields();
@@ -31,6 +34,7 @@ function AdminCreateFacility() {
         throw new Error("Add at least one image");
       }
 
+      // Create a facility object with form values
       const facility = {
         title: fieldsValue.title,
         description: fieldsValue.description,
@@ -40,6 +44,7 @@ function AdminCreateFacility() {
         images: fieldsValue.images,
       };
 
+      // Call the createFacility function from context to add the new facility
       createFacility(facility);
       setIsModalOpen(false);
       form.resetFields();
@@ -49,14 +54,17 @@ function AdminCreateFacility() {
     }
   };
 
+  // Function to open the modal
   const openModal = () => {
     setIsModalOpen(true);
   };
 
+  // Function to handle OK button click
   const handleOk = () => {
     submitForm();
   };
 
+  // Function to handle Cancel button click
   const handleCancel = () => {
     setIsModalOpen(false);
     form.resetFields();

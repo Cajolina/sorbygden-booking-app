@@ -10,6 +10,8 @@ function AdminCreateEvent() {
   const [form] = Form.useForm();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState("");
+
+  // Fetch categories on component mount
   useEffect(() => {
     const fetchData = async () => {
       //Fetch categories only if they haven't already been fetched.
@@ -21,6 +23,7 @@ function AdminCreateEvent() {
     fetchData();
   }, [fetchCategories, categories]);
 
+  // Function to submit the form
   const submitForm = async () => {
     try {
       await form.validateFields();
@@ -32,6 +35,7 @@ function AdminCreateEvent() {
         throw new Error("Add at least one image");
       }
 
+      // Create an event object with form values
       const event = {
         title: fieldsValue.title,
         description: fieldsValue.description,
@@ -41,9 +45,9 @@ function AdminCreateEvent() {
         type: fieldsValue.type,
         images: fieldsValue.images,
       };
-      console.log("i sumbmit form event", event);
-
+      // Call the createEvent function from context to add the new event
       createEvent(event);
+      // Close the modal, reset form fields, and clear any previous errors
       setIsModalOpen(false);
       form.resetFields();
       setError("");
@@ -52,14 +56,17 @@ function AdminCreateEvent() {
     }
   };
 
+  // Function to open the modal
   const openModal = () => {
     setIsModalOpen(true);
   };
 
+  // Function to handle OK button click
   const handleOk = () => {
     submitForm();
   };
 
+  // Function to handle Cancel button click
   const handleCancel = () => {
     setIsModalOpen(false);
     form.resetFields();

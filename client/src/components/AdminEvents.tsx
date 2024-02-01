@@ -19,10 +19,13 @@ function AdminEvents() {
   const [error, setError] = useState("");
   const [form] = Form.useForm();
 
+  // Array to hold types of events (e.g., "event", "facility")
   const typeOf = ["event", "facility"];
 
   // State to track the event being edited
   const [edit, setEdit] = useState<string | null>(null);
+
+  // Fetch categories on component mount
   useEffect(() => {
     const fetchData = async () => {
       await fetchCategories();
@@ -30,6 +33,7 @@ function AdminEvents() {
 
     fetchData();
   }, [fetchCategories]);
+
   // Handle saving changes when the form is submitted
   const handleEditSave = async (values: any) => {
     form.validateFields();
@@ -40,10 +44,10 @@ function AdminEvents() {
       setError("Lägg till åtminstone en bild");
       throw new Error("Add at least one image");
     }
+
     // Create a new object with updated values and send it for update
     const newEventValues = { _id: edit, deleted: false, ...values };
     updateEvent(newEventValues);
-    // Exit edit mode
     setEdit(null);
     setError("");
   };

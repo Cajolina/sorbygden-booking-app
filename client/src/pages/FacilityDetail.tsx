@@ -8,8 +8,11 @@ import CartDisplay from "../components/CartDisplay";
 function FacilityDetail() {
   const [facility, setFacility] = useState<IFacility>();
 
+  // Accessing the 'id' parameter from the route
   const { id } = useParams();
   const { cart } = useCartContext();
+
+  // useEffect to fetch facility details when the 'id' parameter changes
   useEffect(() => {
     async function fetchFacility() {
       try {
@@ -23,6 +26,7 @@ function FacilityDetail() {
     fetchFacility();
   }, [id]);
 
+  // Rendering the facility details and cart display
   return facility ? (
     <div className="detailFacility">
       <div>
@@ -37,7 +41,7 @@ function FacilityDetail() {
           ))}
         </div>
       </div>
-
+      {/* Displaying the cart if items are present in the cart */}
       {cart.length > 0 ? <CartDisplay /> : null}
     </div>
   ) : null;

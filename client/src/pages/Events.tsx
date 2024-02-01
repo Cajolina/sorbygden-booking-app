@@ -28,6 +28,7 @@ function Events() {
         <div
           className={`ProductListContainer ${cartVisible ? "withCart" : ""}`}
         >
+          {/* Map through events and display card for each */}
           {events.map((event) => (
             <Card
               className="productCard"
@@ -44,7 +45,8 @@ function Events() {
               </Link>
               <AddToCartButton product={event} />
             </Card>
-          ))}{" "}
+          ))}
+          {/* Display CartDisplay only if there are items in the cart */}
           {cart.length > 0 ? <CartDisplay /> : null}
         </div>
       </div>

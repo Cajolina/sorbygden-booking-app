@@ -8,97 +8,33 @@ import image6 from "../assets/images/CarouselImages/sor-9.jpg";
 import image7 from "../assets/images/CarouselImages/sor-10.jpg";
 import "../styling/Explore.css";
 function Explore() {
-  const contentStyle: React.CSSProperties = {
-    height: "700px",
-    color: "#fff",
-    lineHeight: "160px",
-    textAlign: "center",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  };
-
   return (
     <div className="exploreContainer">
       <div className="imageTitleContainer ">
         <h1 className="page-title-green">Upplev</h1>
+        {/* Ant Design Carousel component with autoplay feature */}
         <Carousel autoplay>
           <div>
-            <img
-              style={{
-                ...contentStyle,
-                objectFit: "cover",
-                width: "100%",
-              }}
-              src={image1}
-              alt="Slide 1"
-            />
+            <img className="carouselImage" src={image1} alt="Slide 1" />
           </div>
           <div>
-            <img
-              style={{
-                ...contentStyle,
-                objectFit: "cover",
-                width: "100%",
-              }}
-              src={image2}
-              alt="Slide 2"
-            />
+            <img className="carouselImage" src={image2} alt="Slide 2" />
           </div>
           <div>
-            <img
-              style={{
-                ...contentStyle,
-                objectFit: "cover",
-                width: "100%",
-              }}
-              src={image3}
-              alt="Slide 3"
-            />
+            <img className="carouselImage" src={image3} alt="Slide 3" />
           </div>
           <div>
-            <img
-              style={{
-                ...contentStyle,
-                objectFit: "cover",
-                width: "100%",
-              }}
-              src={image4}
-              alt="Slide 4"
-            />
+            <img className="carouselImage" src={image4} alt="Slide 4" />
           </div>
           <div>
-            <img
-              style={{
-                ...contentStyle,
-                objectFit: "cover",
-                width: "100%",
-              }}
-              src={image5}
-              alt="Slide 5"
-            />
+            <img className="carouselImage" src={image5} alt="Slide 5" />
           </div>
 
           <div>
-            <img
-              style={{
-                ...contentStyle,
-                objectFit: "cover",
-                width: "100%",
-              }}
-              src={image6}
-              alt="Slide 6"
-            />
+            <img className="carouselImage" src={image6} alt="Slide 6" />
           </div>
           <div>
-            <img
-              style={{
-                ...contentStyle,
-                objectFit: "cover",
-                width: "100%",
-              }}
-              src={image7}
-              alt="Slide 7"
-            />
+            <img className="carouselImage" src={image7} alt="Slide 7" />
           </div>
         </Carousel>
       </div>
