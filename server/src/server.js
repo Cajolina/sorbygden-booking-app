@@ -5,7 +5,7 @@ const dotenv = require("dotenv").config();
 main().catch((err) => console.log(err));
 
 async function main() {
-    console.log("Connect to DB & start server");
+    console.log("Connected to DB & start server");
     mongoose.set("strictQuery", true);
     await mongoose.connect(process.env.MONGODB_CONNECTION_STRING);
     app.listen(process.env.PORT || 3001, () =>
