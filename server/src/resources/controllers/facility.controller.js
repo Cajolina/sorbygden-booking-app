@@ -1,6 +1,6 @@
 const { FacilityModel } = require("../models/facility.model");
 
-
+// Retrieve all facilities that are not marked as deleted
 async function getAllFacilities(req, res) {
     try {
         const facilities = await FacilityModel.find({ deleted: false });
@@ -15,7 +15,7 @@ async function getAllFacilities(req, res) {
 
 
 }
-
+// Retrieve a specific facility by its ID, if not marked as deleted
 async function getFacility(req, res) {
     try {
         const facility = await FacilityModel.findOne({
@@ -33,7 +33,7 @@ async function getFacility(req, res) {
     }
 
 }
-
+// Retrieve facilities associated with a specific category
 async function getFacilitiesByCategory(req, res) {
     try {
         const facility = await FacilityModel.find({ categories: req.params.id });
@@ -47,7 +47,7 @@ async function getFacilitiesByCategory(req, res) {
     }
 }
 
-
+// Create a new facility based on the provided request body
 async function createFacility(req, res) {
     try {
         const facility = new FacilityModel(req.body);
@@ -60,7 +60,7 @@ async function createFacility(req, res) {
 }
 
 
-
+// Update an existing facility by its ID with the provided request body
 async function updateFacility(req, res) {
     try {
 
@@ -80,7 +80,7 @@ async function updateFacility(req, res) {
     }
 }
 
-
+// Delete an existing facility by its ID
 async function deleteFacility(req, res) {
     try {
         const facility = await FacilityModel.findByIdAndDelete(req.params.id);

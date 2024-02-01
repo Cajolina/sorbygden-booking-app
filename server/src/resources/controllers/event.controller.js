@@ -2,7 +2,7 @@ const { EventModel } = require("../models/event.model");
 
 
 
-//GET
+// Retrieve all events that are not marked as deleted
 async function getAllEvents(req, res) {
     try {
         const events = await EventModel.find({ deleted: false });
@@ -18,6 +18,7 @@ async function getAllEvents(req, res) {
 
 }
 
+// Retrieve a specific event by its ID, if not marked as deleted
 async function getEvent(req, res) {
     try {
         const event = await EventModel.findOne({
@@ -36,6 +37,7 @@ async function getEvent(req, res) {
 
 }
 
+// Retrieve events associated with a specific category
 async function getEventsByCategory(req, res) {
     try {
         const event = await EventModel.find({ categories: req.params.id });
@@ -49,7 +51,7 @@ async function getEventsByCategory(req, res) {
     }
 }
 
-
+// Create a new event based on the provided request body
 async function createEvent(req, res) {
     try {
         const event = new EventModel(req.body);
@@ -62,7 +64,7 @@ async function createEvent(req, res) {
 }
 
 
-
+// Update an existing event by its ID with the provided request body
 async function updateEvent(req, res) {
     try {
 
@@ -82,7 +84,7 @@ async function updateEvent(req, res) {
     }
 }
 
-
+// Delete an existing event by its ID
 async function deleteEvent(req, res) {
     try {
         const event = await EventModel.findByIdAndDelete(req.params.id);

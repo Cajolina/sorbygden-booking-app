@@ -9,8 +9,11 @@ import { useCartContext } from "../context/CartContext";
 function EventDetail() {
   const [event, setEvent] = useState<IEvent>();
 
+  // Accessing the 'id' parameter from the route
   const { id } = useParams();
   const { cart } = useCartContext();
+
+  // useEffect to fetch event details when the 'id' parameter changes
   useEffect(() => {
     async function fetchEvent() {
       try {
@@ -24,6 +27,7 @@ function EventDetail() {
     fetchEvent();
   }, [id]);
 
+  // Rendering the event details, add to cart button, and cart display
   return event ? (
     <div className="detailEvent">
       <ul>
@@ -37,14 +41,8 @@ function EventDetail() {
         <li>Pris: {event.price}kr</li>
 
         <li>I lager: {event.inStock}st </li>
-        {/* <li>
-          <ul>
-            {event.categories.map((category, index) => (
-              <li key={index}>{category}</li>
-            ))}
-          </ul>
-        </li> */}
       </ul>
+      {/* Render the AddToCartButton component with the event as a product */}
       <AddToCartButton product={event} />
       {cart.length > 0 ? <CartDisplay /> : null}
     </div>

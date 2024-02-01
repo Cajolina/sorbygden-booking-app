@@ -1,4 +1,4 @@
-//Event interface
+//EVENT interface
 export interface IEvent {
   _id: string;
   title: string;
@@ -30,7 +30,7 @@ export interface DataTypeEvent {
   type: string;
 }
 
-// Facility interface
+// FACILITY interface
 export interface IFacility {
   _id: string;
   title: string;
@@ -42,7 +42,7 @@ export interface IFacility {
   deleted?: boolean;
   type: "facility";
 }
-//Extended interface
+//EXTENDED FACILITY interface
 export interface IExtendedIFacility extends IFacility {
   startDate?: string | null;
   endDate?: string | null;
@@ -70,7 +70,7 @@ export interface DataTypeFacility {
   type: string;
 }
 
-//Category interface
+//CATEGORY
 export interface ICategoryContextType {
   fetchCategories: () => Promise<void>;
   categories: ICategories[];
@@ -82,7 +82,7 @@ export interface ICategories {
   title: string;
   description: string;
 }
-//Interfaces for cart
+//CART
 export type IProduct = IEvent | IExtendedIFacility;
 
 export interface ICartItem {
@@ -103,7 +103,7 @@ export interface ICartContext {
   setCartVisible: (visible: boolean) => void;
 }
 
-//Stripe checkout interface
+//STRIPE CHECKOUT INTERFACE
 
 export interface IStripeCheckoutContext {
   handleCheckout: () => void;
@@ -112,7 +112,7 @@ export interface IStripeCheckoutContext {
   isVerified: boolean;
 }
 
-//login
+//LOGIN ADMIN
 
 export interface Admin {
   firstName: string;

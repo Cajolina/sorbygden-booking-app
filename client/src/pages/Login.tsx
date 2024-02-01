@@ -12,10 +12,12 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // useEffect hook to authorize the admin on component mount
   useEffect(() => {
     authorizeAdmin();
   }, []);
 
+  // onFinish function triggered on form submission
   const onFinish = async () => {
     const admin = { email, password };
     const response = await loginAdmin(admin);
@@ -32,9 +34,6 @@ function Login() {
     }
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
   // Reset login success when logged out
   useEffect(() => {
     if (!loggedInAdmin) {
@@ -42,7 +41,7 @@ function Login() {
     }
   }, [loggedInAdmin]);
 
-  // Navigate to the admin panel
+  // Navigate to the admin panel upon successful login
   useEffect(() => {
     if (loginSuccess) {
       navigate("/adminpanel");
@@ -58,11 +57,6 @@ function Login() {
 
   return (
     <div className="LoginContainer">
-      {/* Create a loading spinner later 
-      {loginSuccess ? (
-        
-      ) : (
-        <> */}
       <Form
         form={form}
         labelCol={{ span: 8 }}
@@ -70,7 +64,6 @@ function Login() {
         style={{ maxWidth: 600 }}
         initialValues={{ remember: true }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
         <Form.Item
@@ -97,7 +90,7 @@ function Login() {
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">
-            Log in
+            Logga in
           </Button>
         </Form.Item>
       </Form>
@@ -109,8 +102,6 @@ function Login() {
           style={{ marginTop: "1rem" }}
         />
       )}
-      {/* </>
-      )} */}
     </div>
   );
 }

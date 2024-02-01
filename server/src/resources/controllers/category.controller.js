@@ -1,5 +1,6 @@
 const { CategoryModel } = require("../models/category.model")
 
+// Retrieve all categories
 async function getAllCategories(req, res) {
     try {
         const categories = await CategoryModel.find({});
@@ -14,6 +15,7 @@ async function getAllCategories(req, res) {
 
 }
 
+// Retrieve a specific category by its ID
 async function getCategory(req, res) {
     try {
         const specificCategory = await CategoryModel.findById({
@@ -29,6 +31,7 @@ async function getCategory(req, res) {
     }
 }
 
+// Create a new category based on the provided request body
 async function createCategory(req, res) {
     try {
         const category = new CategoryModel(req.body);

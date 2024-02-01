@@ -16,12 +16,16 @@ import AdminFacilities from "../components/AdminFacilities";
 import AdminOrders from "../components/AdminOrders";
 
 function AdminPanel() {
+  // Destructure Layout components from antd
   const { Header, Content, Footer, Sider } = Layout;
-
+  // Define menu items for navigation
   const MenuItems = ["Dashboard", "Events", "Facilities", "Orders"];
 
   const { loggedInAdmin, logoutAdmin, authorizeAdmin } = useLoginContext();
+  // State to manage selected tab in the menu
   const [selectedTab, setSelectedTab] = useState("1");
+
+  // Define menu items with icons for the Sider (sidebar)
   const items: MenuProps["items"] = [
     DashboardOutlined,
     CalendarOutlined,
@@ -33,9 +37,13 @@ function AdminPanel() {
     label: MenuItems[index],
     onClick: () => handleMenuClick(MenuItems[index]),
   }));
+
+  // Authorize admin on component mount
   useEffect(() => {
     authorizeAdmin();
   }, []);
+
+  // Function to handle menu item clicks
   const handleMenuClick = (key: string) => {
     setSelectedTab(key);
   };
@@ -56,6 +64,7 @@ function AdminPanel() {
     );
   }
 
+  // Function to handle logout click
   const handleLogoutClick = () => {
     logoutAdmin();
     window.location.href = "/login";
@@ -99,6 +108,7 @@ function AdminPanel() {
                 borderRadius: "8px",
               }}
             >
+              {/* Render the appropriate component based on the selected tab */}
               {selectedTab === "1" && <AdminDashboard />}
               {selectedTab === "2" && <AdminEvents />}
               {selectedTab === "3" && <AdminFacilities />}

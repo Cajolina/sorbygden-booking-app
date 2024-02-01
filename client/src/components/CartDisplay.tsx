@@ -16,17 +16,22 @@ function CartDisplay() {
     totalSum,
   } = useCartContext();
   const { handleCheckout } = useStripeCheckoutContext();
+
+  // Function to handle removal of a cart item by its ID
   const handleRemoveClick = (id: string) => {
     removeCartItem(id);
   };
+
+  // State to manage the fixed position of the cart on scroll
   const [isFixed, setIsFixed] = useState(false);
+
   //Handle cart placement on scroll
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY || window.pageYOffset;
       const windowHeight = window.innerHeight;
 
-      //
+      // Set a threshold for determining when to fix the cart position
       const threshold = windowHeight / 2;
 
       if (scrollY > threshold) {
@@ -35,15 +40,18 @@ function CartDisplay() {
         setIsFixed(false);
       }
     };
-
+    // Add a scroll event listener when the component mounts
     window.addEventListener("scroll", handleScroll);
 
     return () => {
+      // Remove the scroll event listener when the component unmounts
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
+  // Add a CSS class for fixed positioning based on the isFixed state
   const containerClassName = isFixed ? "fixed" : "";
+
   return (
     <Card
       className={`cartContainer ${containerClassName}`}

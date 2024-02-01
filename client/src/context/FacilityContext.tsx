@@ -7,6 +7,7 @@ import {
 } from "react";
 import { ICreateFacility, IFacility, IFacilityContext } from "../Interfaces";
 
+// Create a context for managing facility-related functionality
 const FacilityContext = createContext<IFacilityContext>({
   facilities: [],
   fetchFacilities: () => Promise.resolve(),
@@ -15,11 +16,13 @@ const FacilityContext = createContext<IFacilityContext>({
   deleteFacility: () => Promise.resolve(),
 });
 
+// Custom hook to access the facility context
 export const useFacilityContext = () => useContext(FacilityContext);
 
 const FacilityProvider = ({ children }: PropsWithChildren) => {
   const [facilities, setFacilities] = useState<IFacility[]>([]);
 
+  // Function to fetch facilities from the API
   async function fetchFacilities() {
     try {
       const response = await fetch("/api/facilities");
@@ -30,29 +33,29 @@ const FacilityProvider = ({ children }: PropsWithChildren) => {
     }
   }
 
+  // Fetch facilities when the component mounts
   useEffect(() => {
     fetchFacilities();
   }, []);
 
-  //Create facility
+  // Function to create a new facility
   async function createFacility(event: ICreateFacility) {
     try {
-      const response = await fetch("/api/facilities", {
+      await fetch("/api/facilities", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(event),
       });
-      const data = await response.json();
-      console.log(data);
+
       fetchFacilities();
     } catch (error) {
       console.log(error);
     }
   }
 
-  //Update facility
+  // Function to update an existing facility
   async function updateFacility(data: IFacility) {
     try {
       await fetch(`/api/facilities/${data._id}`, {
@@ -68,6 +71,7 @@ const FacilityProvider = ({ children }: PropsWithChildren) => {
     }
   }
 
+  // Function to "soft-delete" a facility (mark as deleted)
   async function deleteFacility(data: IFacility) {
     data = { ...data, deleted: true };
     try {

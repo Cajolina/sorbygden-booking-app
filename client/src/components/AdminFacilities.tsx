@@ -17,7 +17,7 @@ function AdminFacilities() {
   const { fetchCategories, categories } = useCategoryContext();
   const { facilities, deleteFacility, updateFacility } = useFacilityContext();
   const [form] = Form.useForm();
-  // State to track the facility being edited
+  // State to track the facility that is being edited
   const [edit, setEdit] = useState<string | null>(null);
   const [error, setError] = useState("");
   const typeOf = ["event", "facility"];
@@ -29,6 +29,7 @@ function AdminFacilities() {
 
     fetchData();
   }, [fetchCategories]);
+
   // Handle saving changes when the form is submitted
   const handleEditSave = async (values: any) => {
     form.validateFields();
@@ -42,7 +43,6 @@ function AdminFacilities() {
     // Create a new object with updated values and send it for update
     const newValuesFacility = { _id: edit, deleted: false, ...values };
     updateFacility(newValuesFacility);
-    // Exit edit mode
     setEdit(null);
     setError("");
   };
@@ -194,13 +194,6 @@ function AdminFacilities() {
         }
       },
     },
-
-    // {
-    //   title: "avalability",
-    //   dataIndex: "avalability",
-    //   key: "avalability",
-    //   render: (text: boolean) => <p>{text}</p>,
-    // },
 
     // Categories column with rendering logic for editing categories in form
     {
