@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Result, Layout, Menu } from "antd";
 import "../styling/AdminPanel.css";
 import {
@@ -20,7 +20,7 @@ function AdminPanel() {
 
   const MenuItems = ["Dashboard", "Events", "Facilities", "Orders"];
 
-  const { loggedInAdmin, logoutAdmin } = useLoginContext();
+  const { loggedInAdmin, logoutAdmin, authorizeAdmin } = useLoginContext();
   const [selectedTab, setSelectedTab] = useState("1");
   const items: MenuProps["items"] = [
     DashboardOutlined,
@@ -33,7 +33,9 @@ function AdminPanel() {
     label: MenuItems[index],
     onClick: () => handleMenuClick(MenuItems[index]),
   }));
-
+  useEffect(() => {
+    authorizeAdmin();
+  }, []);
   const handleMenuClick = (key: string) => {
     setSelectedTab(key);
   };
