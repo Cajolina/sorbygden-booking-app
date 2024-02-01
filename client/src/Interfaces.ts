@@ -129,6 +129,7 @@ export interface loginContext {
   loggedInAdmin: Admin | null;
   loginAdmin: (admin: Credentials) => Promise<string | void>;
   logoutAdmin: () => void;
+  authorizeAdmin: () => void;
 }
 
 //CUSTOMER

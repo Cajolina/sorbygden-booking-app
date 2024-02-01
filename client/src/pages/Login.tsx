@@ -5,12 +5,16 @@ import { useNavigate } from "react-router-dom";
 import "../styling/Login.css";
 function Login() {
   const navigate = useNavigate();
-  const { loginAdmin, loggedInAdmin } = useLoginContext();
+  const { loginAdmin, loggedInAdmin, authorizeAdmin } = useLoginContext();
   const [errorMessage, setErrorMessage] = useState("");
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [form] = Form.useForm();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    authorizeAdmin();
+  }, []);
 
   const onFinish = async () => {
     const admin = { email, password };
