@@ -13,17 +13,14 @@ app.use(express.json());
 app.use(cookieSession({
     name: "session",
     keys: ["s3cr3tK3y"],
-    maxAge: 1000 * 60 * 60,
+    maxAge: 24 * 60 * 60 * 1000,
     sameSite: "strict",
     httpOnly: true,
 }))
 
 
 app.use('/api', eventRouter, facilityRouter, categoryRouter, adminRouter, orderRouter);
-// app.use('/api', facilityRouter);
-// app.use('/api', categoryRouter);
-// app.use('/api', adminRouter)
-// app.use('/api', orderRouter)
+
 
 
 module.exports = { app }
